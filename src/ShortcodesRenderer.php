@@ -140,27 +140,20 @@ class ShortcodesRenderer
         }
 
         $tag = $m[2];
+        $atts = $this->shortcodeParseAtts($m[3]);
+        $this->rendered[] = $tag;
 
         /** @var Shortcode $shortcode */
         if (is_callable($this->shortcodes[$tag])) {
-            $shortcode = $this->shortcodes[$tag]($this->app, $this->manager);
+            return $m[1] . $this->shortcodes[$tag]($atts, isset($m[5]) ? $m[5] : null, $tag, $this->manager) . $m[6];
         } else if (class_exists($this->shortcodes[$tag])) {
             $shortcode = new $this->shortcodes[$tag]($this->app, $this->manager);
+            // Fill all attributes and apply defaults
+            $atts = $this->shortcodeAtts($shortcode->attributes(), $atts);
+
+            return $m[1] . $shortcode->render($atts, isset($m[5]) ? $m[5] : null, $tag) . $m[6];
         } else {
             return "Class {$this->shortcodes[$tag]} doesn't exists";
-        }
-        $this->rendered[] = $tag;
-
-        $atts = $this->shortcodeParseAtts($m[3]);
-        // Fill all attributes and apply defaults
-        $atts = $this->shortcodeAtts($shortcode->attributes(), $atts);
-
-        if (isset($m[5])) {
-            // enclosing tag - extra parameter
-            return $m[1] . $shortcode->render($atts, $m[5], $tag) . $m[6];
-        } else {
-            // self-closing tag
-            return $m[1] . $shortcode->render($atts, null, $tag) . $m[6];
         }
     }
 

@@ -12,20 +12,62 @@ This is where your description should go. Take a look at [contributing.md](contr
 Via Composer
 
 ``` bash
-$ composer require vedmant/laravelshortcodes
+$ composer require vedmant/laravel-shortcodes
 ```
 
 ## Usage
 
-## Change log
+You can use AppServiceProvider boot method to register all needed shortcodes.
 
-Please see the [changelog](changelog.md) for more information on what has changed recently.
+Using shortcode class:
+```php
+Shortcodes::add('b', BShortcode::class);
+```
+
+Using shortcode classes in array:
+```php
+Shortcodes::add([
+   'a' => AShortcode::class,
+   'b' => BShortcode::class,
+]);
+```
+
+Using closure:
+```php
+Shortcodes::add('test', function ($atts, $content, $tag, $manager) {
+   return new HtmlString('<strong>some test shortcode</strong>');
+});
+```
+
+By default this packages extends View to parse all shortcodes during views rendering.
+This feature can be disabled in the config file.
+
+To render shortcodes manually use:
+```blade
+{{ Shortcodes::render('[b]bold[/b]') }}
+```
+
+## Configuraton 
+
+Publish configuration.
+```bash
+php artisan vendor:publish --tag=shortcodes
+```
+
+Edit configuration file as needed.
 
 ## Testing
 
 ``` bash
 $ composer test
 ```
+
+## TODO
+
+1. Add commands to generate a shortcode class
+1. Create styles attributes trait
+1. Integrate into debug bar
+1. Add unit tests
 
 ## Contributing
 

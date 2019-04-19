@@ -18,9 +18,9 @@ class BShortcode extends Shortcode
     {
         return [
             'test'  => [
-                'default'     => '',
+                'default'     => 'Name',
                 'description' => 'Artist username',
-                'sample'      => 'Name',
+                'sample'      => 'Sample',
             ],
         ];
     }
