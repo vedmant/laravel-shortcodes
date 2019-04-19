@@ -1,0 +1,43 @@
+{
+    "name": "vedmant/laravel-shortcodes",
+    "description": ":description",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vedmant",
+            "email": "vedmant@gmail.com",
+            "homepage": "https://vedmant.com"
+        }
+    ],
+    "homepage": "https://github.com/vedmant/laravel-shortcodes",
+    "keywords": ["Laravel", "Shortcodes"],
+    "require": {
+        "illuminate/support": "~5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~7.0",
+        "mockery/mockery": "^1.1",
+        "orchestra/testbench": "~3.0",
+        "sempro/phpunit-pretty-print": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Vedmant\\LaravelShortcodes\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Vedmant\\LaravelShortcodes\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Vedmant\\LaravelShortcodes\\LaravelShortcodesServiceProvider"
+            ],
+            "aliases": {
+                "Shortcodes": "Vedmant\\LaravelShortcodes\\Facades\\Shortcodes"
+            }
+        }
+    }
+}
