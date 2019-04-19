@@ -22,6 +22,6 @@ class Shortcodes extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'laravel-shortcodes';
+        return 'shortcodes';
     }
 }

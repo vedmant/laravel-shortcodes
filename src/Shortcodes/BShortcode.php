@@ -5,11 +5,6 @@ namespace Vedmant\LaravelShortcodes;
 class BShortcode extends Shortcode
 {
     /**
-     * @var string Shortcode name
-     */
-    public $name = 'b';
-
-    /**
      * @var string Shortcode description
      */
     public $description = 'Render [b] shortcode for bold text';
@@ -37,8 +32,8 @@ class BShortcode extends Shortcode
      * @param string $content
      * @return string
      */
-    public function render(array $atts, $content)
+    public function render(array $atts, $content, $tag)
     {
-        return $this->view('_shortcodes.b', compact('atts', 'content'));
+        return $this->view('shortcodes::b', compact('atts', 'content'));
     }
 }

@@ -18,5 +18,5 @@ interface ShortcodeContract
      * @param string $content
      * @return mixed
      */
-    public function render(array $atts, $content);
+    public function render(array $atts, $content, $tag);
 }

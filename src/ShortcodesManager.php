@@ -3,6 +3,7 @@
 namespace Vedmant\LaravelShortcodes;
 
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Support\HtmlString;
 use Illuminate\Support\Traits\Macroable;
 
 class ShortcodesManager
@@ -15,6 +16,11 @@ class ShortcodesManager
     protected $app;
 
     /**
+     * @var array
+     */
+    public $config;
+
+    /**
      * @var ShortcodesRenderer
      */
     protected $renderer;
@@ -23,11 +29,13 @@ class ShortcodesManager
      * Shortcodes manager constructor.
      *
      * @param Application        $app
+     * @param array              $config
      */
-    public function __construct(Application $app)
+    public function __construct(Application $app, array $config)
     {
         $this->app = $app;
-        $this->renderer = new ShortcodesRenderer($this);
+        $this->config = $config;
+        $this->renderer = new ShortcodesRenderer($app, $this);
     }
 
     /**
@@ -84,10 +92,10 @@ class ShortcodesManager
      * Render shortcodes in the content
      *
      * @param string $content
-     * @return string
+     * @return HtmlString
      */
     public function render($content)
     {
-        return $this->renderer->apply($content);
+        return new HtmlString($this->renderer->apply($content));
     }
 }

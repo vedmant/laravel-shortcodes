@@ -2,15 +2,16 @@
 
 namespace Vedmant\LaravelShortcodes;
 
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
 abstract class Shortcode implements ShortcodeContract
 {
     /**
-     * @var string Shortcode name
+     * @var Application Application
      */
-    public $name;
+    public $app;
 
     /**
      * @var string Shortcode description
@@ -27,8 +28,9 @@ abstract class Shortcode implements ShortcodeContract
      *
      * @param ShortcodesManager $manager
      */
-    public function __construct(ShortcodesManager $manager)
+    public function __construct(Application $app, ShortcodesManager $manager)
     {
+        $this->app = $app;
         $this->manager = $manager;
     }
 
@@ -41,9 +43,14 @@ abstract class Shortcode implements ShortcodeContract
      */
     protected function view($name, $data)
     {
+        if ($this->manager->config['throw_exceptions']) {
+            return $this->app['view']->make($name, $data)->render();
+        }
+
+        // Render view without throwing exceptions
         try {
-            return view($name, $data)->renderSimple();
-        } catch(Throwable $e) {
+            return $this->app['view']->make($name, $data)->renderSimple();
+        } catch (Throwable $e) {
             Log::error($e);
             // Report to sentry if it's intergated
             if (class_exists('Sentry')) {

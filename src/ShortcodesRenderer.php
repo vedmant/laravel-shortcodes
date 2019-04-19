@@ -3,11 +3,17 @@
 namespace Vedmant\LaravelShortcodes;
 
 use Exception;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Traits\Macroable;
 
 class ShortcodesRenderer
 {
     use Macroable;
+
+    /**
+     * @var Application Application
+     */
+    public $app;
 
     /**
      * @var ShortcodesManager
@@ -32,10 +38,12 @@ class ShortcodesRenderer
     /**
      * Shortcodes renderer constructor.
      *
+     * @param Application       $app
      * @param ShortcodesManager $manager
      */
-    public function __construct(ShortcodesManager $manager)
+    public function __construct(Application $app, ShortcodesManager $manager)
     {
+        $this->app = $app;
         $this->manager = $manager;
     }
 
@@ -135,8 +143,10 @@ class ShortcodesRenderer
 
         /** @var Shortcode $shortcode */
         if (is_callable($this->shortcodes[$tag])) {
-            $shortcode = $this->shortcodes[$tag]($this->globals);
-        } else if (! class_exists($this->shortcodes[$tag])) {
+            $shortcode = $this->shortcodes[$tag]($this->app, $this->manager);
+        } else if (class_exists($this->shortcodes[$tag])) {
+            $shortcode = new $this->shortcodes[$tag]($this->app, $this->manager);
+        } else {
             return "Class {$this->shortcodes[$tag]} doesn't exists";
         }
         $this->rendered[] = $tag;

@@ -3,6 +3,7 @@
 namespace Vedmant\LaravelShortcodes;
 
 use Illuminate\Support\ServiceProvider;
+use Vedmant\LaravelShortcodes\View\Factory;
 
 class LaravelShortcodesServiceProvider extends ServiceProvider
 {
@@ -13,8 +14,8 @@ class LaravelShortcodesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'vedmant');
-        // $this->loadViewsFrom(__DIR__.'/../resources/views', 'vedmant');
+        // $this->loadTranslationsFrom(__DIR__.'/../lang', 'shortcodes');
+        $this->loadViewsFrom(__DIR__ . '/../views', 'shortcodes');
         // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         // $this->loadRoutesFrom(__DIR__.'/routes.php');
 
@@ -22,10 +23,6 @@ class LaravelShortcodesServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->bootForConsole();
         }
-
-        \Illuminate\View\View::macro('renderSimple', function () {
-            return $this->renderContents();
-        });
     }
 
     /**
@@ -35,11 +32,41 @@ class LaravelShortcodesServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/laravel-shortcodes.php', 'laravel-shortcodes');
+        $this->mergeConfigFrom(__DIR__ . '/../config/shortcodes.php', 'shortcodes');
 
         // Register the service the package provides.
-        $this->app->singleton('laravel-shortcodes', function ($app) {
-            return new ShortcodesManager($app);
+        $this->app->singleton('shortcodes', function ($app) {
+            return new ShortcodesManager($app, $app->make('config')->get('shortcodes'));
+        });
+
+        $this->registerView();
+    }
+
+    /**
+     * Register the view environment.
+     *
+     * @return void
+     */
+    public function registerView()
+    {
+        $this->app->singleton('view', function ($app) {
+            // Next we need to grab the engine resolver instance that will be used by the
+            // environment. The resolver will be used by an environment to get each of
+            // the various engine implementations such as plain PHP or Blade engine.
+            $resolver = $app['view.engine.resolver'];
+
+            $finder = $app['view.finder'];
+
+            $factory = new Factory($resolver, $finder, $app['events']);
+
+            // We will also set the container instance on this view environment since the
+            // view composers may be classes registered in the container, which allows
+            // for great testable, flexible composers for the application developer.
+            $factory->setContainer($app);
+
+            $factory->share('app', $app);
+
+            return $factory;
         });
     }
 
@@ -50,9 +77,9 @@ class LaravelShortcodesServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['laravel-shortcodes'];
+        return ['shortcodes', 'view'];
     }
-    
+
     /**
      * Console-specific booting.
      *
@@ -62,23 +89,23 @@ class LaravelShortcodesServiceProvider extends ServiceProvider
     {
         // Publishing the configuration file.
         $this->publishes([
-            __DIR__.'/../config/laravel-shortcodes.php' => config_path('laravel-shortcodes.php'),
-        ], 'laravel-shortcodes.config');
+            __DIR__ . '/../config/shortcodes.php' => config_path('shortcodes.php'),
+        ], 'shortcodes.config');
 
         // Publishing the views.
         /*$this->publishes([
-            __DIR__.'/../resources/views' => base_path('resources/views/vendor/vedmant'),
-        ], 'laravel-shortcodes.views');*/
+            __DIR__.'/../resources/views' => base_path('resources/views/vendor/shortcodes'),
+        ], 'shortcodes.views');*/
 
         // Publishing assets.
         /*$this->publishes([
             __DIR__.'/../resources/assets' => public_path('vendor/vedmant'),
-        ], 'laravel-shortcodes.views');*/
+        ], 'shortcodes.views');*/
 
         // Publishing the translation files.
         /*$this->publishes([
             __DIR__.'/../resources/lang' => resource_path('lang/vendor/vedmant'),
-        ], 'laravel-shortcodes.views');*/
+        ], 'shortcodes.views');*/
 
         // Registering package commands.
         // $this->commands([]);

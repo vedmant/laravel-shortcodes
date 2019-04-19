@@ -14,4 +14,15 @@ return [
 
     'throw_exceptions' => false,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Automatically render views
+    |--------------------------------------------------------------------------
+    |
+    | If it should automatically render shortcodes in views.
+    |
+    */
+
+    'render_views' => true,
+
 ];
