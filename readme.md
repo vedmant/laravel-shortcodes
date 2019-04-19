@@ -67,6 +67,7 @@ $ composer test
 1. Add commands to generate a shortcode class
 1. Create styles attributes trait
 1. Integrate into debug bar
+1. Fix styleci
 1. Add unit tests
 
 ## Contributing
@@ -94,6 +95,6 @@ MIT. Please see the [license file](license.md) for more information.
 [link-packagist]: https://packagist.org/packages/vedmant/laravelshortcodes
 [link-downloads]: https://packagist.org/packages/vedmant/laravelshortcodes
 [link-travis]: https://travis-ci.org/vedmant/laravelshortcodes
-[link-styleci]: https://styleci.io/repos/12345678
+[link-styleci]: https://github.styleci.io/repos/182276041
 [link-author]: https://github.com/vedmant
 [link-contributors]: ../../contributors
