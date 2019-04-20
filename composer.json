@@ -1,17 +1,19 @@
 {
     "name": "vedmant/laravel-shortcodes",
-    "description": ":description",
+    "description": "Wordress like shortcodes for Laravel",
     "license": "MIT",
     "authors": [
         {
             "name": "Vedmant",
             "email": "vedmant@gmail.com",
-            "homepage": "https://vedmant.com"
+            "homepage": "https://vedmant.com/laravel-shortcodes"
         }
     ],
     "homepage": "https://github.com/vedmant/laravel-shortcodes",
     "keywords": ["Laravel", "Shortcodes"],
     "require": {
+        "illuminate/contracts": "~5",
+        "illuminate/view": "~5",
         "illuminate/support": "~5"
     },
     "require-dev": {
