@@ -65,10 +65,12 @@ $ composer test
 ## TODO
 
 1. Add commands to generate a shortcode class
+1. Update readme
 1. Create styles attributes trait
 1. Integrate into debug bar
 1. Fix styleci
 1. Add unit tests
+1. Integrate travis ci
 
 ## Contributing
 
@@ -87,14 +89,14 @@ If you discover any security related issues, please email vedmant@gmail.com inst
 
 MIT. Please see the [license file](license.md) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/vedmant/laravelshortcodes.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/vedmant/laravelshortcodes.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/vedmant/laravelshortcodes/master.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/vedmant/laravel-shortcodes.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/vedmant/laravel-shortcodes.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/vedmant/laravel-shortcodes/master.svg?style=flat-square
 [ico-styleci]: https://styleci.io/repos/12345678/shield
 
-[link-packagist]: https://packagist.org/packages/vedmant/laravelshortcodes
-[link-downloads]: https://packagist.org/packages/vedmant/laravelshortcodes
-[link-travis]: https://travis-ci.org/vedmant/laravelshortcodes
+[link-packagist]: https://packagist.org/packages/vedmant/laravel-shortcodes
+[link-downloads]: https://packagist.org/packages/vedmant/laravel-shortcodes
+[link-travis]: https://travis-ci.org/vedmant/laravels-hortcodes
 [link-styleci]: https://github.styleci.io/repos/182276041
 [link-author]: https://github.com/vedmant
 [link-contributors]: ../../contributors
