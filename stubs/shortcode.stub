@@ -1,0 +1,41 @@
+<?php
+
+namespace DummyNamespace;
+
+use Vedmant\LaravelShortcodes\Shortcode;
+
+class DummyClass extends Shortcode
+{
+    /**
+     * @var string Shortcode description
+     */
+    public $description = 'Shortcode description';
+
+    /**
+     * Get attributes config
+     *
+     * @return mixed
+     */
+    public function attributes()
+    {
+        return [
+            'example'  => [
+                'default'     => 'default',
+                'description' => 'Example attribute',
+                'sample'      => 'some-sample-value',
+            ],
+        ];
+    }
+
+    /**
+     * Render shortcode
+     *
+     * @param array $atts
+     * @param string $content
+     * @return string
+     */
+    public function render(array $atts, $content, $tag)
+    {
+        return $this->view('shortcodes.some-shortcode', compact('atts', 'content'));
+    }
+}

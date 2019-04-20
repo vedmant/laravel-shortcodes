@@ -2,20 +2,22 @@
 
 namespace Vedmant\LaravelShortcodes\View;
 
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Engine;
 use Illuminate\View\Factory;
 use Illuminate\View\View as IlluminateView;
 use Vedmant\LaravelShortcodes\ShortcodesManager;
-use Webwizo\Shortcodes\Compilers\ShortcodeCompiler;
-use Illuminate\Contracts\View\Engine as EngineInterface;
 
 class View extends IlluminateView
 {
     /**
      * @var ShortcodesManager Shortcode manager
      */
-    public $shortcodes;
+    private $shortcodes;
+
+    /**
+     * @var bool If should render shortcodes
+     */
+    private $renderShortcodes = false;
 
     /**
      * Create a new view instance.
@@ -33,6 +35,27 @@ class View extends IlluminateView
         parent::__construct($factory, $engine, $view, $path, $data);
 
         $this->shortcodes = $shortcodes;
+        $this->renderShortcodes = $this->shortcodes->config['render_views'];
+    }
+
+    /**
+     * Should render shortcodes
+     */
+    public function withShortcodes()
+    {
+        $this->renderShortcodes = true;
+
+        return $this;
+    }
+
+    /**
+     * Should not render shortcodes
+     */
+    public function withoutShortcodes()
+    {
+        $this->renderShortcodes = false;
+
+        return $this;
     }
 
     /**
@@ -54,7 +77,7 @@ class View extends IlluminateView
     {
         $contents = $this->engine->get($this->path, $this->gatherData());
 
-        if ($this->shortcodes->config['render_views']) {
+        if ($this->renderShortcodes) {
             return $this->shortcodes->render($contents);
         }
 

@@ -146,8 +146,11 @@ class ShortcodesRenderer
         /** @var Shortcode $shortcode */
         if (is_callable($this->shortcodes[$tag])) {
             return $m[1] . $this->shortcodes[$tag]($atts, isset($m[5]) ? $m[5] : null, $tag, $this->manager) . $m[6];
-        } else if (class_exists($this->shortcodes[$tag])) {
+        } else if (class_exists($this->shortcodes[$tag]) ) {
             $shortcode = new $this->shortcodes[$tag]($this->app, $this->manager);
+            if (! $shortcode instanceof Shortcode) {
+                return "Class {$this->shortcodes[$tag]} is not an instance of abstract " . Shortcode::class;
+            }
             // Fill all attributes and apply defaults
             $atts = $this->shortcodeAtts($shortcode->attributes(), $atts);
 

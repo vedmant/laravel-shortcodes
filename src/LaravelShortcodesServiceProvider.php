@@ -3,6 +3,7 @@
 namespace Vedmant\LaravelShortcodes;
 
 use Illuminate\Support\ServiceProvider;
+use Vedmant\LaravelShortcodes\Commands\MakeShortcodeCommand;
 use Vedmant\LaravelShortcodes\View\Factory;
 
 class LaravelShortcodesServiceProvider extends ServiceProvider
@@ -108,6 +109,8 @@ class LaravelShortcodesServiceProvider extends ServiceProvider
         ], 'shortcodes.views');*/
 
         // Registering package commands.
-        // $this->commands([]);
+        $this->commands([
+            MakeShortcodeCommand::class,
+        ]);
     }
 }

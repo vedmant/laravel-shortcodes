@@ -26,6 +26,7 @@ abstract class Shortcode implements ShortcodeContract
     /**
      * AbstractShortcode constructor.
      *
+     * @param Application       $app
      * @param ShortcodesManager $manager
      */
     public function __construct(Application $app, ShortcodesManager $manager)

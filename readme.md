@@ -15,7 +15,22 @@ Via Composer
 $ composer require vedmant/laravel-shortcodes
 ```
 
+
 ## Usage
+
+
+### Shortcode class
+
+Shortcode class should extend abstract \Vedmant\LaravelShortcodes\Shortcode class.
+
+This packages adds `make:shortcode` artisan command:
+```bash
+php artisan make:shortcode PostsListShortcode
+```
+It will generate a shortcode class in the `app/Shortcodes` folder by default.
+
+
+### Register shortcodes
 
 You can use AppServiceProvider boot method to register all needed shortcodes.
 
@@ -24,7 +39,7 @@ Using shortcode class:
 Shortcodes::add('b', BShortcode::class);
 ```
 
-Using shortcode classes in array:
+Using shortcode classes in array, preferable for lots of shortcodes:
 ```php
 Shortcodes::add([
    'a' => AShortcode::class,
@@ -39,13 +54,52 @@ Shortcodes::add('test', function ($atts, $content, $tag, $manager) {
 });
 ```
 
+### Rendering shortcodes
+
 By default this packages extends View to parse all shortcodes during views rendering.
 This feature can be disabled in the config file.
+
+Also to enable / disable rendering shortcodes for specific view you can use:
+
+```php
+view('some-view')->withShortcodes();
+// Or
+view('some-view')->withoutShortcodes();
+```
 
 To render shortcodes manually use:
 ```blade
 {{ Shortcodes::render('[b]bold[/b]') }}
 ```
+
+
+### Global attributes
+
+You can set global attributes that will be available in each shortcode
+```php
+Shortcodes::global('post', $post);
+```
+
+Then you can get global attributes in the shortcode class:
+
+```php
+$post = $this->manager->global('post');
+```
+
+
+### Comma separated values (array attributes)
+
+If you need to pass an array to a shortcode, you can pass values separated by comma:
+
+```blade
+[posts_list ids="1,2,3"]
+```
+
+Then in render function you can parse this attribute using build in method:
+```php
+$ids = $this->parseCommaSeparated($atts['ids']);
+```
+
 
 ## Configuraton 
 
@@ -56,21 +110,24 @@ php artisan vendor:publish --tag=shortcodes
 
 Edit configuration file as needed.
 
+
 ## Testing
 
 ``` bash
 $ composer test
 ```
 
+
 ## TODO
 
-1. Add commands to generate a shortcode class
+1. Add commands to generate a shortcode view, generate view by default with make:shortcode
 1. Update readme
 1. Create styles attributes trait
 1. Integrate into debug bar
 1. Fix styleci
 1. Add unit tests
 1. Integrate travis ci
+1. Create performance profile tests, optimize performance
 
 ## Contributing
 
