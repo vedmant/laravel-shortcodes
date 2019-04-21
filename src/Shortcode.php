@@ -21,18 +21,42 @@ abstract class Shortcode implements ShortcodeContract
     /**
      * @var ShortcodesManager
      */
-    private $manager;
+    protected $manager;
+
+    /**
+     * @var array Shortcode attributes
+     */
+    protected $atts;
+
+    /**
+     * @var string Rendered tag name
+     */
+    protected $tag;
 
     /**
      * AbstractShortcode constructor.
      *
      * @param Application       $app
      * @param ShortcodesManager $manager
+     * @param array             $atts
+     * @param string            $tag
      */
-    public function __construct(Application $app, ShortcodesManager $manager)
+    public function __construct(Application $app, ShortcodesManager $manager, array $atts, $tag)
     {
         $this->app = $app;
         $this->manager = $manager;
+        $this->atts = $this->shortcodeAtts($atts);
+        $this->tag = $tag;
+    }
+
+    /**
+     * Get shortcode attributes
+     *
+     * @return array
+     */
+    public function getAtts(): array
+    {
+        return $this->atts;
     }
 
     /**
@@ -61,6 +85,31 @@ abstract class Shortcode implements ShortcodeContract
             }
             return $e->getMessage();
         }
+    }
+
+    /**
+     * Combine user attributes with known attributes and fill in defaults when needed.
+     *
+     * @param array $atts
+     * @return array Combined and filtered attribute list.
+     */
+    protected function shortcodeAtts(array $atts)
+    {
+        $atts = (array) $atts;
+        $out  = [];
+        foreach ($this->attributes() as $name => $default) {
+            if (array_key_exists($name, $atts)) {
+                $out[$name] = $atts[$name];
+            } else {
+                if (is_array($default)) {
+                    $out[$name] = $default['default'];
+                } else {
+                    $out[$name] = $default;
+                }
+            }
+        }
+
+        return $out;
     }
 
     /**

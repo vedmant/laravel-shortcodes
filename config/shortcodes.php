@@ -25,4 +25,15 @@ return [
 
     'render_views' => true,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Laravel Debugbar integration
+    |--------------------------------------------------------------------------
+    |
+    | If it should integrate in the Laravel Debug Bar.
+    |
+    */
+
+    'debugbar' => true,
+
 ];

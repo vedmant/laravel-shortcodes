@@ -89,6 +89,26 @@ class ShortcodesManager
     }
 
     /**
+     * Get all registered shortcodes
+     *
+     * @return array
+     */
+    public function registered(): array
+    {
+        return $this->renderer->shortcodes;
+    }
+
+    /**
+     * Get list of rendered shortcodes
+     *
+     * @return array
+     */
+    public function rendered(): array
+    {
+        return $this->renderer->rendered;
+    }
+
+    /**
      * Render shortcodes in the content
      *
      * @param string $content

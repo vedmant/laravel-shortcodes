@@ -30,12 +30,13 @@ class DummyClass extends Shortcode
     /**
      * Render shortcode
      *
-     * @param array $atts
      * @param string $content
      * @return string
      */
-    public function render(array $atts, $content, $tag)
+    public function render($content)
     {
+        $atts = $this->atts;
+
         return $this->view('shortcodes.some-shortcode', compact('atts', 'content'));
     }
 }

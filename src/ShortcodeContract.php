@@ -14,9 +14,8 @@ interface ShortcodeContract
     /**
      * Render shortcode
      *
-     * @param array  $atts
      * @param string $content
      * @return mixed
      */
-    public function render(array $atts, $content, $tag);
+    public function render($content);
 }

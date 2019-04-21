@@ -28,12 +28,14 @@ class BShortcode extends Shortcode
     /**
      * Render shortcode
      *
-     * @param array $atts
      * @param string $content
      * @return string
      */
-    public function render(array $atts, $content, $tag)
+    public function render($content)
     {
-        return $this->view('shortcodes::b', compact('atts', 'content'));
+        return $this->view('shortcodes::b', [
+            'atts'    => $this->atts,
+            'content' => $content,
+        ]);
     }
 }

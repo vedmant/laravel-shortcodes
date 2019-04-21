@@ -28,16 +28,6 @@ class MakeShortcodeCommand extends GeneratorCommand
     protected $type = 'Shortcode';
 
     /**
-     * Execute the console command.
-     */
-    public function handle()
-    {
-        if (parent::handle() === false && ! $this->option('force')) {
-            return false;
-        }
-    }
-
-    /**
      * Get the stub file for the generator.
      *
      * @return string

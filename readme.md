@@ -120,6 +120,7 @@ $ composer test
 
 ## TODO
 
+1. Shortcodes help generator
 1. Add commands to generate a shortcode view, generate view by default with make:shortcode
 1. Update readme
 1. Create styles attributes trait

@@ -4,6 +4,7 @@ namespace Vedmant\LaravelShortcodes;
 
 use Illuminate\Support\ServiceProvider;
 use Vedmant\LaravelShortcodes\Commands\MakeShortcodeCommand;
+use Vedmant\LaravelShortcodes\Debugbar\ShortcodesCollector;
 use Vedmant\LaravelShortcodes\View\Factory;
 
 class LaravelShortcodesServiceProvider extends ServiceProvider
@@ -23,6 +24,10 @@ class LaravelShortcodesServiceProvider extends ServiceProvider
         // Publishing is only necessary when using the CLI.
         if ($this->app->runningInConsole()) {
             $this->bootForConsole();
+        }
+
+        if ($this->app['config']->get('shortcodes.debugbar') && $this->app->bound('debugbar')) {
+            $this->app['debugbar']->addCollector(new ShortcodesCollector());
         }
     }
 

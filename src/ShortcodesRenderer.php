@@ -96,32 +96,6 @@ class ShortcodesRenderer
     }
 
     /**
-     * Combine user attributes with known attributes and fill in defaults when needed.
-     *
-     * @param array $defaultAtts
-     * @param array $atts
-     * @return array Combined and filtered attribute list.
-     */
-    private function shortcodeAtts(array $defaultAtts, $atts)
-    {
-        $atts = (array) $atts;
-        $out  = [];
-        foreach ($defaultAtts as $name => $default) {
-            if (array_key_exists($name, $atts)) {
-                $out[$name] = $atts[$name];
-            } else {
-                if (is_array($default)) {
-                    $out[$name] = $default['default'];
-                } else {
-                    $out[$name] = $default;
-                }
-            }
-        }
-
-        return $out;
-    }
-
-    /**
      * Regular Expression callable for do_shortcode() for calling shortcode hook.
      *
      * @see    getShortcodeRegex for details of the match array contents.
@@ -134,6 +108,7 @@ class ShortcodesRenderer
      */
     private function doShortcodeTag($m)
     {
+        $startTime = microtime(true);
         // allow [[foo]] syntax for escaping a tag
         if ($m[1] == '[' && $m[6] == ']') {
             return substr($m[0], 1, - 1);
@@ -141,24 +116,45 @@ class ShortcodesRenderer
 
         $tag = $m[2];
         $atts = $this->shortcodeParseAtts($m[3]);
-        $this->rendered[] = $tag;
+        $shortcode = null;
 
         /** @var Shortcode $shortcode */
         if (is_callable($this->shortcodes[$tag])) {
-            return $m[1] . $this->shortcodes[$tag]($atts, isset($m[5]) ? $m[5] : null, $tag, $this->manager) . $m[6];
+            $content = $m[1] . $this->shortcodes[$tag]($atts, isset($m[5]) ? $m[5] : null, $tag, $this->manager) . $m[6];
         } else if (class_exists($this->shortcodes[$tag]) ) {
-            $shortcode = new $this->shortcodes[$tag]($this->app, $this->manager);
+            $shortcode = new $this->shortcodes[$tag]($this->app, $this->manager, (array) $atts, $tag);
             if (! $shortcode instanceof Shortcode) {
-                return "Class {$this->shortcodes[$tag]} is not an instance of abstract " . Shortcode::class;
+                $content = "Class {$this->shortcodes[$tag]} is not an instance of " . Shortcode::class;
+            } else {
+                $content = $m[1] . $shortcode->render(isset($m[5]) ? $m[5] : null) . $m[6];
             }
-            // Fill all attributes and apply defaults
-            $atts = $this->shortcodeAtts($shortcode->attributes(), $atts);
-
-            return $m[1] . $shortcode->render($atts, isset($m[5]) ? $m[5] : null, $tag) . $m[6];
         } else {
-            return "Class {$this->shortcodes[$tag]} doesn't exists";
+            $content = "Class {$this->shortcodes[$tag]} doesn't exists";
+        }
+
+        $this->shortcodeDone($tag, $shortcode, microtime(true) - $startTime);
+
+        return $content;
+    }
+
+    /**
+     * Record rendered shortcode info
+     *
+     * @param string $tag
+     * @param Shortcode|callable $shortcode
+     * @param float $time
+     */
+    private function shortcodeDone($tag, $shortcode, $time)
+    {
+        $this->rendered[] = $tag;
+
+        if ($this->app->bound('debugbar')) {
+            $this->app['debugbar']
+                ->getCollector('shortcodes')
+                ->addShortcode(compact('tag', 'shortcode', 'time'));
         }
     }
+
 
     /**
      * Retrieve the shortcode regular expression for searching.
