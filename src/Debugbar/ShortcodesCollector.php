@@ -45,15 +45,12 @@ class ShortcodesCollector extends DataCollector implements Renderable
     {
         return [
             'count'      => count($this->shortcodes),
-            'shortcodes' => array_map(function ($data) {
+            'shortcodes' => (new Collection($this->shortcodes))->mapWithKeys(function ($data) {
+                $time = $this->getDataFormatter()->formatDuration($data['time']);
                 return [
-                    'message_html' => "[{$data['tag']}]"
-                        . ' in ' . $data['time'] . 'ms'
-                        . ' Atts: ' . (new Collection($data['shortcode']->getAtts()))->map(function ($k, $v) {
-                            return "{$k}=\"{$v}\"";
-                        })->implode(' '),
+                    "[{$data['tag']}] - {$time}" => $this->getVarDumper()->renderVar($data['shortcode']->getAtts()),
                 ];
-            }, $this->shortcodes)
+            }),
         ];
     }
 
@@ -72,8 +69,8 @@ class ShortcodesCollector extends DataCollector implements Renderable
     {
         return [
             'shortcodes' => [
-                'icon' => 'bug',
-                'widget' => 'PhpDebugBar.Widgets.MessagesWidget',
+                'icon' => 'tags',
+                'widget' => 'PhpDebugBar.Widgets.HtmlVariableListWidget',
                 'map' => 'shortcodes.shortcodes',
                 'default' => '[]'
             ],
