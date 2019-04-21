@@ -66,7 +66,7 @@ abstract class Shortcode implements ShortcodeContract
      * @param mixed  $defatul
      * @return array
      */
-    public function shared($key = null, $defatul = null): array
+    public function shared($key = null, $defatul = null)
     {
         return $this->manager->shared($key, null, $defatul);
     }
