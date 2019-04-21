@@ -93,7 +93,7 @@ class LaravelShortcodesServiceProvider extends ServiceProvider
         // Publishing the configuration file.
         $this->publishes([
             __DIR__ . '/../config/shortcodes.php' => config_path('shortcodes.php'),
-        ], 'shortcodes.config');
+        ], 'shortcodes');
 
         // Registering package commands.
         $this->commands([
