@@ -15,6 +15,13 @@ Via Composer
 $ composer require vedmant/laravel-shortcodes
 ```
 
+## Configuraton 
+
+Publish configuration.
+```bash
+php artisan vendor:publish --tag=shortcodes
+```
+
 
 ## Usage
 
@@ -101,14 +108,12 @@ $ids = $this->parseCommaSeparated($atts['ids']);
 ```
 
 
-## Configuraton 
-
-Publish configuration.
-```bash
-php artisan vendor:publish --tag=shortcodes
-```
-
 Edit configuration file as needed.
+
+
+### Integration with Laravel Debugbar
+
+This packages supports Laravel Debugbar. Integration can be disabled in the config file if needed.
 
 
 ## Testing
@@ -124,7 +129,7 @@ $ composer test
 1. Add commands to generate a shortcode view, generate view by default with make:shortcode
 1. Update readme
 1. Create styles attributes trait
-1. Integrate into debug bar
+1. Add custom widget for debugbar integration
 1. Fix styleci
 1. Add unit tests
 1. Integrate travis ci
