@@ -5,12 +5,15 @@ namespace Vedmant\LaravelShortcodes\Debugbar;
 use DebugBar\DataCollector\DataCollector;
 use DebugBar\DataCollector\Renderable;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Traits\Macroable;
 
 /**
  * Collects info about shortcodes
  */
 class ShortcodesCollector extends DataCollector implements Renderable
 {
+    use Macroable;
+
     /**
      * @var array Shortcodes list
      */

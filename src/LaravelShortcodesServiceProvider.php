@@ -16,10 +16,7 @@ class LaravelShortcodesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // $this->loadTranslationsFrom(__DIR__.'/../lang', 'shortcodes');
         $this->loadViewsFrom(__DIR__ . '/../views', 'shortcodes');
-        // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        // $this->loadRoutesFrom(__DIR__.'/routes.php');
 
         // Publishing is only necessary when using the CLI.
         if ($this->app->runningInConsole()) {
@@ -97,21 +94,6 @@ class LaravelShortcodesServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../config/shortcodes.php' => config_path('shortcodes.php'),
         ], 'shortcodes.config');
-
-        // Publishing the views.
-        /*$this->publishes([
-            __DIR__.'/../resources/views' => base_path('resources/views/vendor/shortcodes'),
-        ], 'shortcodes.views');*/
-
-        // Publishing assets.
-        /*$this->publishes([
-            __DIR__.'/../resources/assets' => public_path('vendor/vedmant'),
-        ], 'shortcodes.views');*/
-
-        // Publishing the translation files.
-        /*$this->publishes([
-            __DIR__.'/../resources/lang' => resource_path('lang/vendor/vedmant'),
-        ], 'shortcodes.views');*/
 
         // Registering package commands.
         $this->commands([

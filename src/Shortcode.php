@@ -4,10 +4,13 @@ namespace Vedmant\LaravelShortcodes;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Traits\Macroable;
 use Throwable;
 
 abstract class Shortcode implements ShortcodeContract
 {
+    use Macroable;
+
     /**
      * @var Application Application
      */
