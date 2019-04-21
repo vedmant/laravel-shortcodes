@@ -7,8 +7,8 @@ use Illuminate\Support\HtmlString;
 use Vedmant\LaravelShortcodes\ShortcodesManager;
 
 /**
- * @method static mixed global(string $key, $value = null, $default = null)
- * @method static mixed|ShortcodesManager shared($key = null, $value = null, $default = null)
+ * @method static ShortcodesManager share(string $key, $value)
+ * @method static mixed shared($key = null, $value = null)
  * @method static ShortcodesManager add($name, $callable = null)
  * @method static ShortcodesManager remove($name)
  * @method static array registered()

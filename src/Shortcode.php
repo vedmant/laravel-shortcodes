@@ -71,7 +71,7 @@ abstract class Shortcode implements ShortcodeContract
      */
     public function shared($key = null, $defatul = null)
     {
-        return $this->manager->shared($key, null, $defatul);
+        return $this->manager->shared($key, $defatul);
     }
 
     /**

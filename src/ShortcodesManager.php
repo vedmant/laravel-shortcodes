@@ -44,26 +44,33 @@ class ShortcodesManager
     }
 
     /**
-     * Set / get shared variable
+     * Share attribute
      *
      * @param string $key
      * @param mixed  $value
-     * @param null   $default
-     * @return mixed|ShortcodesManager
+     * @return ShortcodesManager
      */
-    public function shared($key = null, $value = null, $default = null)
+    public function share($key, $value)
+    {
+        $this->shared[$key] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Set / get shared variable
+     *
+     * @param string $key
+     * @param null   $default
+     * @return mixed
+     */
+    public function shared($key = null, $default = null)
     {
         if ($key === null) {
             return $this->shared;
         }
 
-        if ($value === null) {
-            return array_get($this->shared, $key, $default);
-        }
-
-        $this->shared[$key] = $value;
-
-        return $this;
+        return array_get($this->shared, $key, $default);
     }
 
     /**
