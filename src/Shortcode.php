@@ -22,6 +22,11 @@ abstract class Shortcode implements ShortcodeContract
     public $description;
 
     /**
+     * @var array Shortcode attributes with default values
+     */
+    public $attributes = [];
+
+    /**
      * @var ShortcodesManager
      */
     protected $manager;
@@ -50,6 +55,16 @@ abstract class Shortcode implements ShortcodeContract
         $this->manager = $manager;
         $this->atts = $atts;
         $this->tag = $tag;
+    }
+
+    /**
+     * Get attributes config
+     *
+     * @return mixed
+     */
+    public function attributes()
+    {
+        return $this->attributes;
     }
 
     /**

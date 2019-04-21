@@ -12,20 +12,15 @@ class DummyClass extends Shortcode
     public $description = 'Shortcode description';
 
     /**
-     * Get attributes config
-     *
-     * @return mixed
+     * @var array Shortcode attributes with default values
      */
-    public function attributes()
-    {
-        return [
-            'example'  => [
-                'default'     => 'default',
-                'description' => 'Example attribute',
-                'sample'      => 'some-sample-value',
-            ],
-        ];
-    }
+    public $attributes = [
+        'example'  => [
+            'default'     => 'default',
+            'description' => 'Example attribute',
+            'sample'      => 'some-sample-value',
+        ],
+    ];
 
     /**
      * Render shortcode

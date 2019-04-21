@@ -10,20 +10,15 @@ class BShortcode extends Shortcode
     public $description = 'Render [b] shortcode for bold text';
 
     /**
-     * Get attributes config
-     *
-     * @return mixed
+     * @var array Shortcode attributes with default values
      */
-    public function attributes()
-    {
-        return [
-            'test'  => [
-                'default'     => 'Name',
-                'description' => 'Artist username',
-                'sample'      => 'Sample',
-            ],
-        ];
-    }
+    public $attributes = [
+        'test'  => [
+            'default'     => 'Name',
+            'description' => 'Artist username',
+            'sample'      => 'Sample',
+        ],
+    ];
 
     /**
      * Render shortcode
