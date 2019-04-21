@@ -48,7 +48,7 @@ class ShortcodesCollector extends DataCollector implements Renderable
             'shortcodes' => (new Collection($this->shortcodes))->mapWithKeys(function ($data) {
                 $time = $this->getDataFormatter()->formatDuration($data['time']);
                 return [
-                    "[{$data['tag']}] - {$time}" => $this->getVarDumper()->renderVar($data['shortcode']->getAtts()),
+                    "[{$data['tag']}] - {$time}" => $this->getVarDumper()->renderVar($data['shortcode']->atts()),
                 ];
             }),
         ];

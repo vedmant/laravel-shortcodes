@@ -35,8 +35,9 @@ class DummyClass extends Shortcode
      */
     public function render($content)
     {
-        $atts = $this->atts;
+        $atts = $this->atts();
+        $shared = $this->shared();
 
-        return $this->view('shortcodes.some-shortcode', compact('atts', 'content'));
+        return $this->view('shortcodes.some-shortcode', compact('atts', 'shared', 'content'));
     }
 }

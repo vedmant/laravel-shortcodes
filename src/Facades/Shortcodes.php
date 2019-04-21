@@ -10,6 +10,7 @@ use Vedmant\LaravelShortcodes\ShortcodesManager;
  * @method static ShortcodesManager add($name, $callable = null)
  * @method static ShortcodesManager remove($name)
  * @method static ShortcodesManager render($content)
+ * @method static mixed|ShortcodesManager shared($key = null, $value = null, $default = null)
  *
  * @see \Vedmant\LaravelShortcodes\ShortcodesManager
  */

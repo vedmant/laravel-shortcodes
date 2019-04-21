@@ -21,6 +21,11 @@ class ShortcodesManager
     public $config;
 
     /**
+     * @var array Shared attributes
+     */
+    public $shared = [];
+
+    /**
      * @var ShortcodesRenderer
      */
     protected $renderer;
@@ -39,20 +44,24 @@ class ShortcodesManager
     }
 
     /**
-     * Set / get global variable
+     * Set / get shared variable
      *
      * @param string $key
      * @param mixed  $value
      * @param null   $default
      * @return mixed|ShortcodesManager
      */
-    public function global($key, $value = null, $default = null)
+    public function shared($key = null, $value = null, $default = null)
     {
-        if ($value === null) {
-            return array_get($this->renderer->globals, $key, $default);
+        if ($key === null) {
+            return $this->shared;
         }
 
-        $this->renderer->globals[$key] = $value;
+        if ($value === null) {
+            return array_get($this->shared, $key, $default);
+        }
+
+        $this->shared[$key] = $value;
 
         return $this;
     }

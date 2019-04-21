@@ -80,17 +80,20 @@ To render shortcodes manually use:
 ```
 
 
-### Global attributes
+### Shared attributes
 
-You can set global attributes that will be available in each shortcode
+YOccasionally, you may need to share a piece of data with all shortcodes that are rendered by your application. 
+You may do so using the shortode facade's `share` method. 
+Typically, you should place calls to share in the controller, or within a service provider's boot method.
 ```php
-Shortcodes::global('post', $post);
+Shortcodes::share('post', $post);
 ```
 
-Then you can get global attributes in the shortcode class:
+Then you can get share attributes in the shortcode class:
 
 ```php
-$post = $this->manager->global('post');
+$post = $this->shared('post');
+$allShared = $this->shared();
 ```
 
 
@@ -125,10 +128,12 @@ $ composer test
 
 ## TODO
 
-1. Shortcodes help generator
-1. Add commands to generate a shortcode view, generate view by default with make:shortcode
-1. Update readme
+1. Shortcodes help data generator
 1. Create styles attributes trait
+1. Casting attributes (int, bool, array (comma separated))
+1. Add commands to generate a shortcode view, generate view by default with make:shortcode
+1. Optional attributes validation
+1. Update readme
 1. Add custom widget for debugbar integration
 1. Fix styleci
 1. Add unit tests

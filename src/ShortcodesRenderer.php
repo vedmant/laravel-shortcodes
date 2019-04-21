@@ -26,11 +26,6 @@ class ShortcodesRenderer
     public $shortcodes = [];
 
     /**
-     * @var array Global attributes
-     */
-    public $globals = [];
-
-    /**
      * @var array List of shortcodes that was rendered during the session
      */
     public $rendered = [];

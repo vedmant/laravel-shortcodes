@@ -45,7 +45,7 @@ abstract class Shortcode implements ShortcodeContract
     {
         $this->app = $app;
         $this->manager = $manager;
-        $this->atts = $this->shortcodeAtts($atts);
+        $this->atts = $atts;
         $this->tag = $tag;
     }
 
@@ -54,9 +54,21 @@ abstract class Shortcode implements ShortcodeContract
      *
      * @return array
      */
-    public function getAtts(): array
+    public function atts(): array
     {
-        return $this->atts;
+        return $this->applyDefaultAtts($this->atts);
+    }
+
+    /**
+     * Get shortcode attributes
+     *
+     * @param string $key
+     * @param mixed  $defatul
+     * @return array
+     */
+    public function shared($key = null, $defatul = null): array
+    {
+        return $this->manager->shared($key, null, $defatul);
     }
 
     /**
@@ -93,7 +105,7 @@ abstract class Shortcode implements ShortcodeContract
      * @param array $atts
      * @return array Combined and filtered attribute list.
      */
-    protected function shortcodeAtts(array $atts)
+    protected function applyDefaultAtts(array $atts)
     {
         $atts = (array) $atts;
         $out  = [];
