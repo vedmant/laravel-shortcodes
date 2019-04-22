@@ -21,7 +21,7 @@ class BShortcode extends Shortcode
     ];
 
     /**
-     * Render shortcode
+     * Render shortcode.
      *
      * @param string $content
      * @return string

@@ -3,9 +3,9 @@
 namespace Vedmant\LaravelShortcodes;
 
 use Illuminate\Support\ServiceProvider;
-use Vedmant\LaravelShortcodes\Commands\MakeShortcodeCommand;
-use Vedmant\LaravelShortcodes\Debugbar\ShortcodesCollector;
 use Vedmant\LaravelShortcodes\View\Factory;
+use Vedmant\LaravelShortcodes\Debugbar\ShortcodesCollector;
+use Vedmant\LaravelShortcodes\Commands\MakeShortcodeCommand;
 
 class LaravelShortcodesServiceProvider extends ServiceProvider
 {
@@ -16,7 +16,7 @@ class LaravelShortcodesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__ . '/../views', 'shortcodes');
+        $this->loadViewsFrom(__DIR__.'/../views', 'shortcodes');
 
         // Publishing is only necessary when using the CLI.
         if ($this->app->runningInConsole()) {
@@ -37,7 +37,7 @@ class LaravelShortcodesServiceProvider extends ServiceProvider
     {
         // Publishing the configuration file.
         $this->publishes([
-            __DIR__ . '/../config/shortcodes.php' => config_path('shortcodes.php'),
+            __DIR__.'/../config/shortcodes.php' => config_path('shortcodes.php'),
         ], 'shortcodes');
 
         // Registering package commands.
@@ -53,7 +53,7 @@ class LaravelShortcodesServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/shortcodes.php', 'shortcodes');
+        $this->mergeConfigFrom(__DIR__.'/../config/shortcodes.php', 'shortcodes');
 
         // Register the service the package provides.
         $this->app->singleton('shortcodes', function ($app) {

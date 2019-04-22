@@ -5,14 +5,14 @@ namespace Vedmant\LaravelShortcodes;
 interface ShortcodeContract
 {
     /**
-     * Get attributes config
+     * Get attributes config.
      *
      * @return array
      */
     public function attributes();
 
     /**
-     * Render shortcode
+     * Render shortcode.
      *
      * @param string $content
      * @return mixed
@@ -20,14 +20,14 @@ interface ShortcodeContract
     public function render($content);
 
     /**
-     * Get shortcode attributes
+     * Get shortcode attributes.
      *
      * @return array
      */
     public function atts(): array;
 
     /**
-     * Get shortcode attributes
+     * Get shortcode attributes.
      *
      * @param string $key
      * @param mixed  $defatul

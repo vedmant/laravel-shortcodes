@@ -2,13 +2,13 @@
 
 namespace Vedmant\LaravelShortcodes\Debugbar;
 
-use DebugBar\DataCollector\DataCollector;
-use DebugBar\DataCollector\Renderable;
 use Illuminate\Support\Collection;
+use DebugBar\DataCollector\Renderable;
 use Illuminate\Support\Traits\Macroable;
+use DebugBar\DataCollector\DataCollector;
 
 /**
- * Collects info about shortcodes
+ * Collects info about shortcodes.
  */
 class ShortcodesCollector extends DataCollector implements Renderable
 {
@@ -20,7 +20,7 @@ class ShortcodesCollector extends DataCollector implements Renderable
     protected $shortcodes = [];
 
     /**
-     * Adds an shortcode to be profiled in the debug bar
+     * Adds an shortcode to be profiled in the debug bar.
      *
      * @param array $data
      */
@@ -30,7 +30,7 @@ class ShortcodesCollector extends DataCollector implements Renderable
     }
 
     /**
-     * Returns the list of shortcodes being profiled
+     * Returns the list of shortcodes being profiled.
      *
      * @return array
      */
@@ -40,7 +40,7 @@ class ShortcodesCollector extends DataCollector implements Renderable
     }
 
     /**
-     * Called by the DebugBar when data needs to be collected
+     * Called by the DebugBar when data needs to be collected.
      *
      * @return array Collected data
      */
@@ -50,6 +50,7 @@ class ShortcodesCollector extends DataCollector implements Renderable
 
         $shortcodesData = $shortcodes->mapWithKeys(function ($data) {
             $time = $this->getDataFormatter()->formatDuration($data['time']);
+
             return [
                 "[{$data['tag']}] - {$time}" => $this->getVarDumper()->renderVar($data['shortcode']->atts()),
             ];
@@ -82,12 +83,12 @@ class ShortcodesCollector extends DataCollector implements Renderable
                 'icon'    => 'tags',
                 'widget'  => 'PhpDebugBar.Widgets.HtmlVariableListWidget',
                 'map'     => 'shortcodes.shortcodes',
-                'default' => '[]'
+                'default' => '[]',
             ],
             'shortcodes:badge' => [
                 'map'     => 'shortcodes.count',
-                'default' => 'null'
-            ]
+                'default' => 'null',
+            ],
         ];
     }
 }
