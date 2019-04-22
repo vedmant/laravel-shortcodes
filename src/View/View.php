@@ -73,7 +73,7 @@ class View extends IlluminateView
      *
      * @return string
      */
-    protected function renderContents()
+    protected function getContents()
     {
         $contents = $this->engine->get($this->path, $this->gatherData());
 
