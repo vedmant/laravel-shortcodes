@@ -2,9 +2,9 @@
 
 namespace Vedmant\LaravelShortcodes;
 
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Traits\Macroable;
+use Illuminate\Contracts\Foundation\Application;
 
 class ShortcodesManager
 {
@@ -35,13 +35,13 @@ class ShortcodesManager
      */
     public function __construct(Application $app, array $config)
     {
-        $this->app      = $app;
-        $this->config   = $config;
+        $this->app = $app;
+        $this->config = $config;
         $this->renderer = new ShortcodesRenderer($app, $this);
     }
 
     /**
-     * Share attribute
+     * Share attribute.
      *
      * @param string $key
      * @param mixed  $value
@@ -55,7 +55,7 @@ class ShortcodesManager
     }
 
     /**
-     * Set / get shared variable
+     * Set / get shared variable.
      *
      * @param string $key
      * @param null   $default
@@ -71,7 +71,7 @@ class ShortcodesManager
     }
 
     /**
-     * Register a shortcode
+     * Register a shortcode.
      *
      * @param string|array    $name
      * @param string|callable $callable
@@ -89,7 +89,7 @@ class ShortcodesManager
     }
 
     /**
-     * Unregister a shortcode
+     * Unregister a shortcode.
      *
      * @param string $name
      * @return ShortcodesManager
@@ -102,7 +102,7 @@ class ShortcodesManager
     }
 
     /**
-     * Get all registered shortcodes
+     * Get all registered shortcodes.
      *
      * @return array
      */
@@ -112,7 +112,7 @@ class ShortcodesManager
     }
 
     /**
-     * Get list of rendered shortcodes
+     * Get list of rendered shortcodes.
      *
      * @return array
      */
@@ -122,7 +122,7 @@ class ShortcodesManager
     }
 
     /**
-     * Render shortcodes in the content
+     * Render shortcodes in the content.
      *
      * @param string $content
      * @return HtmlString

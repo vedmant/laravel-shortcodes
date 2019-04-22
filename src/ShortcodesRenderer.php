@@ -3,8 +3,8 @@
 namespace Vedmant\LaravelShortcodes;
 
 use Exception;
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Traits\Macroable;
+use Illuminate\Contracts\Foundation\Application;
 
 class ShortcodesRenderer
 {
@@ -38,12 +38,12 @@ class ShortcodesRenderer
      */
     public function __construct(Application $app, ShortcodesManager $manager)
     {
-        $this->app     = $app;
+        $this->app = $app;
         $this->manager = $manager;
     }
 
     /**
-     * Apply shortcodes to content
+     * Apply shortcodes to content.
      *
      * @param string $content
      * @return string
@@ -99,30 +99,29 @@ class ShortcodesRenderer
      * @see    getShortcodeRegex for details of the match array contents.
      *
      * @global      array self::$shortcode_tags
-     *
      */
     private function doShortcodeTag($m)
     {
         $startTime = microtime(true);
         // allow [[foo]] syntax for escaping a tag
         if ($m[1] == '[' && $m[6] == ']') {
-            return substr($m[0], 1, - 1);
+            return substr($m[0], 1, -1);
         }
 
-        $tag       = $m[2];
-        $atts      = $this->shortcodeParseAtts($m[3]);
+        $tag = $m[2];
+        $atts = $this->shortcodeParseAtts($m[3]);
         $shortcode = null;
 
-        /** @var Shortcode $shortcode */
+        /* @var Shortcode $shortcode */
         if (is_callable($this->shortcodes[$tag])) {
-            $content = $m[1] . $this->shortcodes[$tag]($atts, isset($m[5]) ? $m[5] : null, $tag,
-                    $this->manager) . $m[6];
-        } else if (class_exists($this->shortcodes[$tag])) {
+            $content = $m[1].$this->shortcodes[$tag]($atts, isset($m[5]) ? $m[5] : null, $tag,
+                    $this->manager).$m[6];
+        } elseif (class_exists($this->shortcodes[$tag])) {
             $shortcode = new $this->shortcodes[$tag]($this->app, $this->manager, (array) $atts, $tag);
-            if ( ! $shortcode instanceof Shortcode) {
-                $content = "Class {$this->shortcodes[$tag]} is not an instance of " . Shortcode::class;
+            if (! $shortcode instanceof Shortcode) {
+                $content = "Class {$this->shortcodes[$tag]} is not an instance of ".Shortcode::class;
             } else {
-                $content = $m[1] . $shortcode->render(isset($m[5]) ? $m[5] : null) . $m[6];
+                $content = $m[1].$shortcode->render(isset($m[5]) ? $m[5] : null).$m[6];
             }
         } else {
             $content = "Class {$this->shortcodes[$tag]} doesn't exists";
@@ -134,7 +133,7 @@ class ShortcodesRenderer
     }
 
     /**
-     * Record rendered shortcode info
+     * Record rendered shortcode info.
      *
      * @param string             $tag
      * @param Shortcode|callable $shortcode
@@ -174,39 +173,39 @@ class ShortcodesRenderer
         if (empty($tagnames)) {
             $tagnames = array_keys($this->shortcodes);
         }
-        $tagregexp = join('|', array_map('preg_quote', $tagnames));
+        $tagregexp = implode('|', array_map('preg_quote', $tagnames));
 
         // WARNING! Do not change this regex without changing do_shortcode_tag() and strip_shortcode_tag()
         // Also, see shortcode_unautop() and shortcode.js.
         return
             '\\['                              // Opening bracket
-            . '(\\[?)'                           // 1: Optional second opening bracket for escaping shortcodes: [[tag]]
-            . "($tagregexp)"                     // 2: Shortcode name
-            . '(?![\\w-])'                       // Not followed by word character or hyphen
-            . '('                                // 3: Unroll the loop: Inside the opening shortcode tag
-            .     '[^\\]\\/]*'                   // Not a closing bracket or forward slash
-            .     '(?:'
-            .         '\\/(?!\\])'               // A forward slash not followed by a closing bracket
-            .         '[^\\]\\/]*'               // Not a closing bracket or forward slash
-            .     ')*?'
-            . ')'
-            . '(?:'
-            .     '(\\/)'                        // 4: Self closing tag ...
-            .     '\\]'                          // ... and closing bracket
-            . '|'
-            .     '\\]'                          // Closing bracket
-            .     '(?:'
-            .         '('                        // 5: Unroll the loop: Optionally, anything between the opening and closing shortcode tags
-            .             '[^\\[]*+'             // Not an opening bracket
-            .             '(?:'
-            .                 '\\[(?!\\/\\2\\])' // An opening bracket not followed by the closing shortcode tag
-            .                 '[^\\[]*+'         // Not an opening bracket
-            .             ')*+'
-            .         ')'
-            .         '\\[\\/\\2\\]'             // Closing shortcode tag
-            .     ')?'
-            . ')'
-            . '(\\]?)';                          // 6: Optional second closing brocket for escaping shortcodes: [[tag]]
+            .'(\\[?)'                           // 1: Optional second opening bracket for escaping shortcodes: [[tag]]
+            ."($tagregexp)"                     // 2: Shortcode name
+            .'(?![\\w-])'                       // Not followed by word character or hyphen
+            .'('                                // 3: Unroll the loop: Inside the opening shortcode tag
+            .'[^\\]\\/]*'                   // Not a closing bracket or forward slash
+            .'(?:'
+            .'\\/(?!\\])'               // A forward slash not followed by a closing bracket
+            .'[^\\]\\/]*'               // Not a closing bracket or forward slash
+            .')*?'
+            .')'
+            .'(?:'
+            .'(\\/)'                        // 4: Self closing tag ...
+            .'\\]'                          // ... and closing bracket
+            .'|'
+            .'\\]'                          // Closing bracket
+            .'(?:'
+            .'('                        // 5: Unroll the loop: Optionally, anything between the opening and closing shortcode tags
+            .'[^\\[]*+'             // Not an opening bracket
+            .'(?:'
+            .'\\[(?!\\/\\2\\])' // An opening bracket not followed by the closing shortcode tag
+            .'[^\\[]*+'         // Not an opening bracket
+            .')*+'
+            .')'
+            .'\\[\\/\\2\\]'             // Closing shortcode tag
+            .')?'
+            .')'
+            .'(\\]?)';                          // 6: Optional second closing brocket for escaping shortcodes: [[tag]]
     }
 
     /**
@@ -234,16 +233,16 @@ class ShortcodesRenderer
      */
     private function shortcodeParseAtts($text)
     {
-        $atts    = array();
+        $atts = [];
         $pattern = $this->getShortcodeAttsRegex();
-        $text    = preg_replace("/[\x{00a0}\x{200b}]+/u", " ", $text);
+        $text = preg_replace("/[\x{00a0}\x{200b}]+/u", ' ', $text);
         if (preg_match_all($pattern, $text, $match, PREG_SET_ORDER)) {
             foreach ($match as $m) {
-                if ( ! empty($m[1])) {
+                if (! empty($m[1])) {
                     $atts[strtolower($m[1])] = stripcslashes($m[2]);
-                } elseif ( ! empty($m[3])) {
+                } elseif (! empty($m[3])) {
                     $atts[strtolower($m[3])] = stripcslashes($m[4]);
-                } elseif ( ! empty($m[5])) {
+                } elseif (! empty($m[5])) {
                     $atts[strtolower($m[5])] = stripcslashes($m[6]);
                 } elseif (isset($m[7]) && strlen($m[7])) {
                     $atts[] = stripcslashes($m[7]);
@@ -263,6 +262,7 @@ class ShortcodesRenderer
         } else {
             $atts = ltrim($text);
         }
+
         return $atts;
     }
 
@@ -275,7 +275,7 @@ class ShortcodesRenderer
     private function unescapeInvalidShortcodes($content)
     {
         // Clean up entire string, avoids re-parsing HTML.
-        $trans   = array('&#91;' => '[', '&#93;' => ']');
+        $trans = ['&#91;' => '[', '&#93;' => ']'];
         $content = strtr($content, $trans);
 
         return $content;

@@ -2,10 +2,10 @@
 
 namespace Vedmant\LaravelShortcodes;
 
-use Illuminate\Contracts\Foundation\Application;
+use Throwable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Traits\Macroable;
-use Throwable;
+use Illuminate\Contracts\Foundation\Application;
 
 abstract class Shortcode implements ShortcodeContract
 {
@@ -51,14 +51,14 @@ abstract class Shortcode implements ShortcodeContract
      */
     public function __construct(Application $app, ShortcodesManager $manager, array $atts, $tag)
     {
-        $this->app     = $app;
+        $this->app = $app;
         $this->manager = $manager;
-        $this->atts    = $atts;
-        $this->tag     = $tag;
+        $this->atts = $atts;
+        $this->tag = $tag;
     }
 
     /**
-     * Get shortcode attributes
+     * Get shortcode attributes.
      *
      * @return array
      */
@@ -77,7 +77,7 @@ abstract class Shortcode implements ShortcodeContract
     protected function applyDefaultAtts(array $defaults, array $atts)
     {
         $atts = (array) $atts;
-        $out  = [];
+        $out = [];
         foreach ($defaults as $name => $default) {
             if (array_key_exists($name, $atts)) {
                 $out[$name] = $atts[$name];
@@ -94,7 +94,7 @@ abstract class Shortcode implements ShortcodeContract
     }
 
     /**
-     * Get attributes config
+     * Get attributes config.
      *
      * @return mixed
      */
@@ -104,7 +104,7 @@ abstract class Shortcode implements ShortcodeContract
     }
 
     /**
-     * Get shortcode attributes
+     * Get shortcode attributes.
      *
      * @param string $key
      * @param mixed  $defatul
@@ -116,7 +116,7 @@ abstract class Shortcode implements ShortcodeContract
     }
 
     /**
-     * Render a view with supressed exceptions
+     * Render a view with supressed exceptions.
      *
      * @param $name
      * @param $data
@@ -131,7 +131,7 @@ abstract class Shortcode implements ShortcodeContract
         // Render view without throwing exceptions
         try {
             return $this->app['view']->make($name, $data)->renderSimple();
-        } catch(Throwable $e) {
+        } catch (Throwable $e) {
             Log::error($e);
             // Report to sentry if it's intergated
             if (class_exists('Sentry')) {
@@ -139,12 +139,13 @@ abstract class Shortcode implements ShortcodeContract
                     \Sentry::captureException($e);
                 }
             }
-            return "[$this->tag] " . get_class($e) . ' ' . $e->getMessage();
+
+            return "[$this->tag] ".get_class($e).' '.$e->getMessage();
         }
     }
 
     /**
-     * Parse comma separated values
+     * Parse comma separated values.
      *
      * @param $string
      * @return array

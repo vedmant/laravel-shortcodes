@@ -34,7 +34,7 @@ class MakeShortcodeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__ . '/../../stubs/shortcode.stub';
+        return __DIR__.'/../../stubs/shortcode.stub';
     }
 
     /**
@@ -56,6 +56,6 @@ class MakeShortcodeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\Shortcodes';
+        return $rootNamespace.'\Shortcodes';
     }
 }
