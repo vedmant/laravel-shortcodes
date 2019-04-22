@@ -4,7 +4,7 @@
 [![Software License][ico-license]](license.md)
 [![Total Downloads][ico-downloads]][link-downloads]
 [![Build Status][ico-travis]][link-travis]
-[![StyleCI][ico-styleci]][link-styleci]
+[![StyleCI](https://styleci.io/repos/182276041/shield)](https://styleci.io/repos/182276041)
 
 Wordpress based Shortcodes for Laravel 5.x with shared variables, debugbar integration, 
 flexible configuration and other useful features.
@@ -187,7 +187,6 @@ MIT. Please see the [license file](license.md) for more information.
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/vedmant/laravel-shortcodes.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/vedmant/laravel-shortcodes/master.svg?style=flat-square
-[ico-styleci]: https://styleci.io/repos/12345678/shield
 
 [link-packagist]: https://packagist.org/packages/vedmant/laravel-shortcodes
 [link-downloads]: https://packagist.org/packages/vedmant/laravel-shortcodes
