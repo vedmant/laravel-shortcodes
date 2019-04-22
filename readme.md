@@ -128,6 +128,7 @@ $ composer test
 
 ## TODO
 
+1. shortcodes() helper
 1. Shortcodes help data generator
 1. Create styles attributes trait
 1. Casting attributes (int, bool, array (comma separated))

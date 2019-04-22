@@ -46,14 +46,21 @@ class ShortcodesCollector extends DataCollector implements Renderable
      */
     public function collect()
     {
+        $shortcodes = new Collection($this->shortcodes);
+
+        $shortcodesData = $shortcodes->mapWithKeys(function ($data) {
+            $time = $this->getDataFormatter()->formatDuration($data['time']);
+            return [
+                "[{$data['tag']}] - {$time}" => $this->getVarDumper()->renderVar($data['shortcode']->atts()),
+            ];
+        });
+
         return [
             'count'      => count($this->shortcodes),
-            'shortcodes' => (new Collection($this->shortcodes))->mapWithKeys(function ($data) {
-                $time = $this->getDataFormatter()->formatDuration($data['time']);
-                return [
-                    "[{$data['tag']}] - {$time}" => $this->getVarDumper()->renderVar($data['shortcode']->atts()),
-                ];
-            }),
+            'shortcodes' => $shortcodesData->prepend(
+                $this->getDataFormatter()->formatDuration($shortcodes->sum('time')),
+                'Total time'
+            ),
         ];
     }
 
