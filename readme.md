@@ -15,6 +15,9 @@ Via Composer
 $ composer require vedmant/laravel-shortcodes
 ```
 
+This package supports Laravel Auto-Discover and will be discovered automatically.
+
+
 ## Configuraton 
 
 Publish configuration.

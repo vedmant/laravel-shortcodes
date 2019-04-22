@@ -74,7 +74,7 @@ abstract class Shortcode implements ShortcodeContract
      */
     public function atts(): array
     {
-        return $this->applyDefaultAtts($this->atts);
+        return $this->applyDefaultAtts($this->attributes(), $this->atts);
     }
 
     /**
@@ -120,14 +120,15 @@ abstract class Shortcode implements ShortcodeContract
     /**
      * Combine user attributes with known attributes and fill in defaults when needed.
      *
+     * @param array $defaults
      * @param array $atts
      * @return array Combined and filtered attribute list.
      */
-    protected function applyDefaultAtts(array $atts)
+    protected function applyDefaultAtts(array $defaults, array $atts)
     {
         $atts = (array) $atts;
         $out  = [];
-        foreach ($this->attributes() as $name => $default) {
+        foreach ($defaults as $name => $default) {
             if (array_key_exists($name, $atts)) {
                 $out[$name] = $atts[$name];
             } else {
