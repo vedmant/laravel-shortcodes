@@ -1,11 +1,30 @@
 # Laravel Shortcodes
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
+[![Software License][ico-license]](license.md)
 [![Total Downloads][ico-downloads]][link-downloads]
 [![Build Status][ico-travis]][link-travis]
 [![StyleCI][ico-styleci]][link-styleci]
 
-This is where your description should go. Take a look at [contributing.md](contributing.md) to see a to do list.
+Wordpress based Shortcodes for Laravel 5.x with shared variables, debugbar integration, 
+flexible configuration and other useful features.
+
+Build powerful and simple layouts using shortcodes in the content or views like this:
+
+```php
+[b]Bold text[/b]
+
+[row]
+  [col md=8]
+    [posts_list types="post,gallery" show_tags="yes"]
+ [/col]
+ [col md=4]
+    [poll id="1"]
+    [user_info username="test_user" website="mywebsite.com" active="yes"]
+    [last_free_post title="Free Posts"]
+  [/col]
+[/row]
+``` 
 
 ## Installation
 
@@ -16,6 +35,9 @@ $ composer require vedmant/laravel-shortcodes
 ```
 
 This package supports Laravel Auto-Discover and will be discovered automatically.
+
+For Laravel version before 5.5 please add the Vedmant\LaravelShortcodes\LaravelShortcodesServiceProvider::class to the providers array in `config/app.php`.
+And optionally 'Shortcodes' => Vedmant\LaravelShortcodes\Facades\Shortcodes::class, to aliases.
 
 
 ## Configuraton 
@@ -134,6 +156,7 @@ $ composer test
 1. shortcodes() helper
 1. Add unit tests
 1. Shortcodes help data generator
+1. Add basic bootstrap shortcodes set
 1. Casting attributes (int, bool, array (comma separated))
 1. Add commands to generate a shortcode view, generate view by default with make:shortcode
 1. Optional attributes validation
