@@ -113,7 +113,7 @@ abstract class Shortcode implements ShortcodeContract
                     \Sentry::captureException($e);
                 }
             }
-            return $e->getMessage();
+            return "[$this->tag] " . get_class($e) . ' ' . $e->getMessage();
         }
     }
 
