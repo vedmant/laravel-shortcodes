@@ -1,5 +1,5 @@
 preset: laravel
 
 finder:
-   name:
+   not-name:
       - "ShortcodesRenderer.php"
