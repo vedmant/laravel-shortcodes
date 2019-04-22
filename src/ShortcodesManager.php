@@ -11,20 +11,17 @@ class ShortcodesManager
     use Macroable;
 
     /**
-     * @var Application
-     */
-    protected $app;
-
-    /**
      * @var array
      */
     public $config;
-
     /**
      * @var array Shared attributes
      */
     public $shared = [];
-
+    /**
+     * @var Application
+     */
+    protected $app;
     /**
      * @var ShortcodesRenderer
      */
@@ -33,13 +30,13 @@ class ShortcodesManager
     /**
      * Shortcodes manager constructor.
      *
-     * @param Application        $app
-     * @param array              $config
+     * @param Application $app
+     * @param array       $config
      */
     public function __construct(Application $app, array $config)
     {
-        $this->app = $app;
-        $this->config = $config;
+        $this->app      = $app;
+        $this->config   = $config;
         $this->renderer = new ShortcodesRenderer($app, $this);
     }
 
@@ -94,7 +91,7 @@ class ShortcodesManager
     /**
      * Unregister a shortcode
      *
-     * @param string    $name
+     * @param string $name
      * @return ShortcodesManager
      */
     public function remove($name)

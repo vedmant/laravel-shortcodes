@@ -29,6 +29,24 @@ class LaravelShortcodesServiceProvider extends ServiceProvider
     }
 
     /**
+     * Console-specific booting.
+     *
+     * @return void
+     */
+    protected function bootForConsole()
+    {
+        // Publishing the configuration file.
+        $this->publishes([
+            __DIR__ . '/../config/shortcodes.php' => config_path('shortcodes.php'),
+        ], 'shortcodes');
+
+        // Registering package commands.
+        $this->commands([
+            MakeShortcodeCommand::class,
+        ]);
+    }
+
+    /**
      * Register any package services.
      *
      * @return void
@@ -81,23 +99,5 @@ class LaravelShortcodesServiceProvider extends ServiceProvider
     public function provides()
     {
         return ['shortcodes', 'view'];
-    }
-
-    /**
-     * Console-specific booting.
-     *
-     * @return void
-     */
-    protected function bootForConsole()
-    {
-        // Publishing the configuration file.
-        $this->publishes([
-            __DIR__ . '/../config/shortcodes.php' => config_path('shortcodes.php'),
-        ], 'shortcodes');
-
-        // Registering package commands.
-        $this->commands([
-            MakeShortcodeCommand::class,
-        ]);
     }
 }

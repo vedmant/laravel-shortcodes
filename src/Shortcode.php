@@ -51,20 +51,10 @@ abstract class Shortcode implements ShortcodeContract
      */
     public function __construct(Application $app, ShortcodesManager $manager, array $atts, $tag)
     {
-        $this->app = $app;
+        $this->app     = $app;
         $this->manager = $manager;
-        $this->atts = $atts;
-        $this->tag = $tag;
-    }
-
-    /**
-     * Get attributes config
-     *
-     * @return mixed
-     */
-    public function attributes()
-    {
-        return $this->attributes;
+        $this->atts    = $atts;
+        $this->tag     = $tag;
     }
 
     /**
@@ -75,6 +65,42 @@ abstract class Shortcode implements ShortcodeContract
     public function atts(): array
     {
         return $this->applyDefaultAtts($this->attributes(), $this->atts);
+    }
+
+    /**
+     * Combine user attributes with known attributes and fill in defaults when needed.
+     *
+     * @param array $defaults
+     * @param array $atts
+     * @return array Combined and filtered attribute list.
+     */
+    protected function applyDefaultAtts(array $defaults, array $atts)
+    {
+        $atts = (array) $atts;
+        $out  = [];
+        foreach ($defaults as $name => $default) {
+            if (array_key_exists($name, $atts)) {
+                $out[$name] = $atts[$name];
+            } else {
+                if (is_array($default)) {
+                    $out[$name] = $default['default'];
+                } else {
+                    $out[$name] = $default;
+                }
+            }
+        }
+
+        return $out;
+    }
+
+    /**
+     * Get attributes config
+     *
+     * @return mixed
+     */
+    public function attributes()
+    {
+        return $this->attributes;
     }
 
     /**
@@ -105,7 +131,7 @@ abstract class Shortcode implements ShortcodeContract
         // Render view without throwing exceptions
         try {
             return $this->app['view']->make($name, $data)->renderSimple();
-        } catch (Throwable $e) {
+        } catch(Throwable $e) {
             Log::error($e);
             // Report to sentry if it's intergated
             if (class_exists('Sentry')) {
@@ -115,32 +141,6 @@ abstract class Shortcode implements ShortcodeContract
             }
             return "[$this->tag] " . get_class($e) . ' ' . $e->getMessage();
         }
-    }
-
-    /**
-     * Combine user attributes with known attributes and fill in defaults when needed.
-     *
-     * @param array $defaults
-     * @param array $atts
-     * @return array Combined and filtered attribute list.
-     */
-    protected function applyDefaultAtts(array $defaults, array $atts)
-    {
-        $atts = (array) $atts;
-        $out  = [];
-        foreach ($defaults as $name => $default) {
-            if (array_key_exists($name, $atts)) {
-                $out[$name] = $atts[$name];
-            } else {
-                if (is_array($default)) {
-                    $out[$name] = $default['default'];
-                } else {
-                    $out[$name] = $default;
-                }
-            }
-        }
-
-        return $out;
     }
 
     /**

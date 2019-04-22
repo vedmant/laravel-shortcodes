@@ -22,19 +22,25 @@ class View extends IlluminateView
     /**
      * Create a new view instance.
      *
-     * @param  \Illuminate\View\Factory  $factory
-     * @param  \Illuminate\Contracts\View\Engine  $engine
-     * @param  string  $view
-     * @param  string  $path
-     * @param  mixed  $data
-     * @param  ShortcodesManager  $shortcodes
+     * @param \Illuminate\View\Factory          $factory
+     * @param \Illuminate\Contracts\View\Engine $engine
+     * @param string                            $view
+     * @param string                            $path
+     * @param mixed                             $data
+     * @param ShortcodesManager                 $shortcodes
      * @return void
      */
-    public function __construct(Factory $factory, Engine $engine, $view, $path, $data = [], ShortcodesManager $shortcodes)
-    {
+    public function __construct(
+        Factory $factory,
+        Engine $engine,
+        $view,
+        $path,
+        $data = [],
+        ShortcodesManager $shortcodes
+    ) {
         parent::__construct($factory, $engine, $view, $path, $data);
 
-        $this->shortcodes = $shortcodes;
+        $this->shortcodes       = $shortcodes;
         $this->renderShortcodes = $this->shortcodes->config['render_views'];
     }
 

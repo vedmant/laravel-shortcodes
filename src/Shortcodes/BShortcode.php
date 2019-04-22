@@ -13,7 +13,7 @@ class BShortcode extends Shortcode
      * @var array Shortcode attributes with default values
      */
     public $attributes = [
-        'test'  => [
+        'test' => [
             'default'     => 'Name',
             'description' => 'Artist username',
             'sample'      => 'Sample',

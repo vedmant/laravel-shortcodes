@@ -38,7 +38,7 @@ class ShortcodesRenderer
      */
     public function __construct(Application $app, ShortcodesManager $manager)
     {
-        $this->app = $app;
+        $this->app     = $app;
         $this->manager = $manager;
     }
 
@@ -93,11 +93,11 @@ class ShortcodesRenderer
     /**
      * Regular Expression callable for do_shortcode() for calling shortcode hook.
      *
-     * @see    getShortcodeRegex for details of the match array contents.
-     *
-     * @param array $m    Regular expression match array
+     * @param array $m Regular expression match array
      * @return false|string False on failure.
      * @throws Exception
+     * @see    getShortcodeRegex for details of the match array contents.
+     *
      * @global      array self::$shortcode_tags
      *
      */
@@ -109,16 +109,17 @@ class ShortcodesRenderer
             return substr($m[0], 1, - 1);
         }
 
-        $tag = $m[2];
-        $atts = $this->shortcodeParseAtts($m[3]);
+        $tag       = $m[2];
+        $atts      = $this->shortcodeParseAtts($m[3]);
         $shortcode = null;
 
         /** @var Shortcode $shortcode */
         if (is_callable($this->shortcodes[$tag])) {
-            $content = $m[1] . $this->shortcodes[$tag]($atts, isset($m[5]) ? $m[5] : null, $tag, $this->manager) . $m[6];
-        } else if (class_exists($this->shortcodes[$tag]) ) {
+            $content = $m[1] . $this->shortcodes[$tag]($atts, isset($m[5]) ? $m[5] : null, $tag,
+                    $this->manager) . $m[6];
+        } else if (class_exists($this->shortcodes[$tag])) {
             $shortcode = new $this->shortcodes[$tag]($this->app, $this->manager, (array) $atts, $tag);
-            if (! $shortcode instanceof Shortcode) {
+            if ( ! $shortcode instanceof Shortcode) {
                 $content = "Class {$this->shortcodes[$tag]} is not an instance of " . Shortcode::class;
             } else {
                 $content = $m[1] . $shortcode->render(isset($m[5]) ? $m[5] : null) . $m[6];
@@ -135,9 +136,9 @@ class ShortcodesRenderer
     /**
      * Record rendered shortcode info
      *
-     * @param string $tag
+     * @param string             $tag
      * @param Shortcode|callable $shortcode
-     * @param float $time
+     * @param float              $time
      */
     private function shortcodeDone($tag, $shortcode, $time)
     {
@@ -149,7 +150,6 @@ class ShortcodesRenderer
                 ->addShortcode(compact('tag', 'shortcode', 'time'));
         }
     }
-
 
     /**
      * Retrieve the shortcode regular expression for searching.
@@ -166,7 +166,7 @@ class ShortcodesRenderer
      * 5 - The content of a shortcode when it wraps some content.
      * 6 - An extra ] to allow for escaping shortcodes with double [[]]
      *
-     * @param array  $tagnames List of shortcodes to find. Optional. Defaults to all registered shortcodes.
+     * @param array $tagnames List of shortcodes to find. Optional. Defaults to all registered shortcodes.
      * @return string The shortcode search regular expression
      */
     private function getShortcodeRegex($tagnames = null)
@@ -214,7 +214,8 @@ class ShortcodesRenderer
      *
      * @return string The shortcode attribute regular expression
      */
-    private function getShortcodeAttsRegex() {
+    private function getShortcodeAttsRegex()
+    {
         return '/([\w-]+)\s*=\s*"([^"]*)"(?:\s|$)|([\w-]+)\s*=\s*\'([^\']*)\'(?:\s|$)|([\w-]+)\s*=\s*([^\s\'"]+)(?:\s|$)|"([^"]*)"(?:\s|$)|(\S+)(?:\s|$)/';
     }
 
@@ -238,11 +239,11 @@ class ShortcodesRenderer
         $text    = preg_replace("/[\x{00a0}\x{200b}]+/u", " ", $text);
         if (preg_match_all($pattern, $text, $match, PREG_SET_ORDER)) {
             foreach ($match as $m) {
-                if (! empty($m[1])) {
+                if ( ! empty($m[1])) {
                     $atts[strtolower($m[1])] = stripcslashes($m[2]);
-                } elseif (! empty($m[3])) {
+                } elseif ( ! empty($m[3])) {
                     $atts[strtolower($m[3])] = stripcslashes($m[4]);
-                } elseif (! empty($m[5])) {
+                } elseif ( ! empty($m[5])) {
                     $atts[strtolower($m[5])] = stripcslashes($m[6]);
                 } elseif (isset($m[7]) && strlen($m[7])) {
                     $atts[] = stripcslashes($m[7]);

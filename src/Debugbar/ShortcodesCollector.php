@@ -78,14 +78,14 @@ class ShortcodesCollector extends DataCollector implements Renderable
     public function getWidgets()
     {
         return [
-            'shortcodes' => [
-                'icon' => 'tags',
-                'widget' => 'PhpDebugBar.Widgets.HtmlVariableListWidget',
-                'map' => 'shortcodes.shortcodes',
+            'shortcodes'       => [
+                'icon'    => 'tags',
+                'widget'  => 'PhpDebugBar.Widgets.HtmlVariableListWidget',
+                'map'     => 'shortcodes.shortcodes',
                 'default' => '[]'
             ],
             'shortcodes:badge' => [
-                'map' => 'shortcodes.count',
+                'map'     => 'shortcodes.count',
                 'default' => 'null'
             ]
         ];
