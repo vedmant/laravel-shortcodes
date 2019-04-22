@@ -65,7 +65,7 @@ class View extends IlluminateView
      */
     public function renderSimple()
     {
-        return $this->engine->get($this->path, $this->gatherData());
+        return $this->renderContents();
     }
 
     /**
@@ -73,7 +73,7 @@ class View extends IlluminateView
      *
      * @return string
      */
-    protected function getContents()
+    protected function renderContents()
     {
         $contents = $this->engine->get($this->path, $this->gatherData());
 
