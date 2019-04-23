@@ -2,8 +2,8 @@
 
 namespace Vedmant\LaravelShortcodes\Tests;
 
-use Orchestra\Testbench\TestCase as TestBenchTestCase;
 use Vedmant\LaravelShortcodes\ShortcodesManager;
+use Orchestra\Testbench\TestCase as TestBenchTestCase;
 
 class TestCase extends TestBenchTestCase
 {
