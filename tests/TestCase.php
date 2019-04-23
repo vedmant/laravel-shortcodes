@@ -18,7 +18,6 @@ class TestCase extends TestBenchTestCase
 
         $this->afterApplicationCreated(function () {
             $this->manager = app()->make('shortcodes');
-
         });
     }
 
