@@ -28,5 +28,7 @@ before_install:
    - composer require "illuminate/view:${ILLUMINATE_VERSION}" --no-update --prefer-dist
    - composer require "orchestra/testbench:${ILLUMINATE_VERSION/5\./3\.}" --no-update --prefer-dist
 
+install: travis_retry composer install --no-interaction --prefer-dist
+
 script:
    - phpunit
