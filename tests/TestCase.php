@@ -12,14 +12,14 @@ class TestCase extends TestBenchTestCase
      */
     protected $manager;
 
-    /**
-     * Setup the test environment.
-     */
-    public function setUp()
+    public function __construct($name = null, array $data = [], $dataName = '')
     {
-        parent::setUp();
+        parent::__construct($name, $data, $dataName);
 
-        $this->manager = app()->make('shortcodes');
+        $this->afterApplicationCreated(function () {
+            $this->manager = app()->make('shortcodes');
+
+        });
     }
 
     protected function getPackageProviders($app)
