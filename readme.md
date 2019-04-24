@@ -47,6 +47,8 @@ Publish configuration.
 php artisan vendor:publish --tag=shortcodes
 ```
 
+Edit configuration file as needed.
+
 
 ## Usage
 
@@ -107,14 +109,14 @@ To render shortcodes manually use:
 
 ### Shared attributes
 
-YOccasionally, you may need to share a piece of data with all shortcodes that are rendered by your application. 
+Occasionally, you may need to share a piece of data with all shortcodes that are rendered by your application. 
 You may do so using the shortode facade's `share` method. 
 Typically, you should place calls to share in the controller, or within a service provider's boot method.
 ```php
 Shortcodes::share('post', $post);
 ```
 
-Then you can get share attributes in the shortcode class:
+Then you can get shared attributes in the shortcode class:
 
 ```php
 $post = $this->shared('post');
@@ -136,9 +138,6 @@ $ids = $this->parseCommaSeparated($atts['ids']);
 ```
 
 
-Edit configuration file as needed.
-
-
 ### Integration with Laravel Debugbar
 
 This packages supports Laravel Debugbar. Integration can be disabled in the config file if needed.
@@ -147,7 +146,7 @@ This packages supports Laravel Debugbar. Integration can be disabled in the conf
 ## Testing
 
 ``` bash
-$ composer test
+$ vendor/bin/phpunit
 ```
 
 
