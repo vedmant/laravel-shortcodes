@@ -7,7 +7,7 @@
 [![StyleCI](https://styleci.io/repos/182276041/shield)](https://styleci.io/repos/182276041)
 
 Wordpress based Shortcodes for Laravel 5.x with shared variables, debugbar integration, 
-flexible configuration and other useful features.
+flexible configurations and other useful features.
 
 Build powerful and simple layouts using shortcodes in the content or views like this:
 
@@ -17,8 +17,8 @@ Build powerful and simple layouts using shortcodes in the content or views like 
 [row]
   [col md=8]
     [posts_list types="post,gallery" show_tags="yes"]
- [/col]
- [col md=4]
+  [/col]
+  [col md=4]
     [poll id="1"]
     [user_info username="test_user" website="mywebsite.com" active="yes"]
     [last_free_post title="Free Posts"]
@@ -57,11 +57,11 @@ Edit configuration file as needed.
 
 Shortcode class should extend abstract \Vedmant\LaravelShortcodes\Shortcode class.
 
-This packages adds `make:shortcode` artisan command:
+This packages adds the `make:shortcode` artisan command:
 ```bash
 php artisan make:shortcode PostsListShortcode
 ```
-It will generate a shortcode class in the `app/Shortcodes` folder by default.
+Which generates a shortcode class in the `app/Shortcodes` folder by default.
 
 
 ### Register shortcodes
@@ -90,10 +90,10 @@ Shortcodes::add('test', function ($atts, $content, $tag, $manager) {
 
 ### Rendering shortcodes
 
-By default this packages extends View to parse all shortcodes during views rendering.
+By default this package extends the View to parse all shortcodes during rendering.
 This feature can be disabled in the config file.
 
-Also to enable / disable rendering shortcodes for specific view you can use:
+Also to enable / disable rendering shortcodes for a specific view you can use:
 
 ```php
 view('some-view')->withShortcodes();
