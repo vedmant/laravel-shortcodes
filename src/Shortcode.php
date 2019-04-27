@@ -2,6 +2,7 @@
 
 namespace Vedmant\LaravelShortcodes;
 
+use Illuminate\Support\Collection;
 use Throwable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Traits\Macroable;
@@ -118,11 +119,11 @@ abstract class Shortcode implements ShortcodeContract
     /**
      * Render a view with supressed exceptions.
      *
-     * @param $name
-     * @param $data
+     * @param string $name
+     * @param array|Collection $data
      * @return string
      */
-    protected function view($name, $data)
+    protected function view($name, $data = [])
     {
         if ($this->manager->config['throw_exceptions']) {
             return $this->app['view']->make($name, $data)->render();

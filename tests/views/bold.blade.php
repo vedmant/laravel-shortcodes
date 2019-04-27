@@ -1,0 +1,1 @@
+[b class="test"]Content[/b]

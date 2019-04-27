@@ -153,16 +153,13 @@ $ vendor/bin/phpunit
 ## TODO
 
 1. shortcodes() helper
-1. Add unit tests
+1. Add Debugbar integration tests
 1. Shortcodes help data generator
-1. Add basic bootstrap shortcodes set
 1. Casting attributes (int, bool, array (comma separated))
+1. Add basic bootstrap shortcodes set
 1. Add commands to generate a shortcode view, generate view by default with make:shortcode
 1. Optional attributes validation
-1. Update readme
 1. Add custom widget for debugbar integration
-1. Fix styleci
-1. Integrate travis ci
 1. Create performance profile tests, optimize performance
 
 ## Contributing
