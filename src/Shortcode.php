@@ -2,8 +2,8 @@
 
 namespace Vedmant\LaravelShortcodes;
 
-use Illuminate\Support\Collection;
 use Throwable;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Foundation\Application;

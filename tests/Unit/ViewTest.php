@@ -2,8 +2,8 @@
 
 namespace Vedmant\LaravelShortcodes\Tests\Unit;
 
-use Vedmant\LaravelShortcodes\Tests\Resources\ExceptionShortcode;
 use Vedmant\LaravelShortcodes\Tests\TestCase;
+use Vedmant\LaravelShortcodes\Tests\Resources\ExceptionShortcode;
 
 class ViewTest extends TestCase
 {
@@ -89,6 +89,6 @@ class ViewTest extends TestCase
 
     private function addViewsPath()
     {
-        app('view')->addLocation(__DIR__ . '/../views');
+        app('view')->addLocation(__DIR__.'/../views');
     }
 }
