@@ -22,7 +22,7 @@ class ViewTest extends TestCase
         });
 
         $rendered = $this->app['view']->make('bold')->render();
-        $this->assertEquals('<b class="test">Content</b>', $rendered);
+        $this->assertEquals('<b class="test">Content</b>', (string) $rendered);
     }
 
     public function testRenderDisabled()
@@ -36,7 +36,7 @@ class ViewTest extends TestCase
 
         $rendered = $this->app['view']->make('bold')->render();
 
-        $this->assertEquals('[b class="test"]Content[/b]', $rendered);
+        $this->assertEquals('[b class="test"]Content[/b]', (string) $rendered);
     }
 
     public function testRenderWithShortcodes()
@@ -49,7 +49,7 @@ class ViewTest extends TestCase
         });
 
         $rendered = $this->app['view']->make('bold')->withShortcodes()->render();
-        $this->assertEquals('<b class="test">Content</b>', $rendered);
+        $this->assertEquals('<b class="test">Content</b>', (string) $rendered);
     }
 
     public function testRenderWithoutShortcodes()
@@ -62,7 +62,7 @@ class ViewTest extends TestCase
         });
 
         $rendered = $this->app['view']->make('bold')->withoutShortcodes()->render();
-        $this->assertEquals('[b class="test"]Content[/b]', $rendered);
+        $this->assertEquals('[b class="test"]Content[/b]', (string) $rendered);
     }
 
     public function testRenderWithoutThrowing()
@@ -73,7 +73,7 @@ class ViewTest extends TestCase
 
         $rendered = $this->app['view']->make('exception')->render();
 
-        $this->assertStringStartsWith('[exception] ErrorException Undefined variable: notExisting ', $rendered);
+        $this->assertStringStartsWith('[exception] ErrorException Undefined variable: notExisting ', (string) $rendered);
     }
 
     public function testRenderWithThrowing()

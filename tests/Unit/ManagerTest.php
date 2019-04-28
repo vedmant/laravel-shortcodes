@@ -42,7 +42,7 @@ class ManagerTest extends TestCase
         });
         $rendered = $this->manager->render('[b class="test"]Content[/b]');
 
-        $this->assertEquals('<b class="test">Content</b>', $rendered);
+        $this->assertEquals('<b class="test">Content</b>', (string) $rendered);
     }
 
     public function testRenderClassSingle()
@@ -50,7 +50,7 @@ class ManagerTest extends TestCase
         $this->manager->add('b', BShortcode::class);
         $rendered = $this->manager->render('[b class="test"]Content[/b]');
 
-        $this->assertEquals('<b class="test">Content</b>', $rendered);
+        $this->assertEquals('<b class="test">Content</b>', (string) $rendered);
     }
 
     public function testRenderClassMultiple()
@@ -61,6 +61,6 @@ class ManagerTest extends TestCase
         ]);
         $rendered = $this->manager->render('[b class="test"]Content[/b][hr class="bold"]');
 
-        $this->assertEquals('<b class="test">Content</b><hr class="bold"/>', $rendered);
+        $this->assertEquals('<b class="test">Content</b><hr class="bold"/>', (string) $rendered);
     }
 }
