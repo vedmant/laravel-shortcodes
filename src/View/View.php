@@ -5,12 +5,12 @@ namespace Vedmant\LaravelShortcodes\View;
 use Illuminate\View\Factory;
 use Illuminate\Contracts\View\Engine;
 use Illuminate\View\View as IlluminateView;
-use Vedmant\LaravelShortcodes\ShortcodesManager;
+use Vedmant\LaravelShortcodes\Manager;
 
 class View extends IlluminateView
 {
     /**
-     * @var ShortcodesManager Shortcode manager
+     * @var Manager Shortcode manager
      */
     private $shortcodes;
 
@@ -27,7 +27,7 @@ class View extends IlluminateView
      * @param string                            $view
      * @param string                            $path
      * @param mixed                             $data
-     * @param ShortcodesManager                 $shortcodes
+     * @param Manager                           $shortcodes
      * @return void
      */
     public function __construct(
@@ -36,7 +36,7 @@ class View extends IlluminateView
         $view,
         $path,
         $data,
-        ShortcodesManager $shortcodes
+        Manager $shortcodes
     ) {
         parent::__construct($factory, $engine, $view, $path, $data);
 

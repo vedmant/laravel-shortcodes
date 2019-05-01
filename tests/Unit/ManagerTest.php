@@ -10,7 +10,7 @@ class ManagerTest extends TestCase
 {
     public function testInstance()
     {
-        $this->assertInstanceOf(\Vedmant\LaravelShortcodes\ShortcodesManager::class, $this->manager);
+        $this->assertInstanceOf(\Vedmant\LaravelShortcodes\Manager::class, $this->manager);
     }
 
     public function testAdd()

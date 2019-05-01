@@ -101,9 +101,20 @@ view('some-view')->withShortcodes();
 view('some-view')->withoutShortcodes();
 ```
 
-To render shortcodes manually use:
+To render shortcodes manually use with Facade:
 ```blade
 {{ Shortcodes::render('[b]bold[/b]') }}
+```
+
+To render shortcodes with Blade directive:
+```blade
+@shortcodes
+   [b class="block"]Content[/b]
+@endshortcodes
+
+Or
+
+@shortcodes('[b]bold[/b]')
 ```
 
 

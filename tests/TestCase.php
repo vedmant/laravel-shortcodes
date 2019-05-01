@@ -2,13 +2,13 @@
 
 namespace Vedmant\LaravelShortcodes\Tests;
 
-use Vedmant\LaravelShortcodes\ShortcodesManager;
+use Vedmant\LaravelShortcodes\Manager;
 use Orchestra\Testbench\TestCase as TestBenchTestCase;
 
 class TestCase extends TestBenchTestCase
 {
     /**
-     * @var ShortcodesManager
+     * @var Manager
      */
     protected $manager;
 

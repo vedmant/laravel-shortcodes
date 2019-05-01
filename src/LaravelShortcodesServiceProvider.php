@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Vedmant\LaravelShortcodes\View\Factory;
 use Vedmant\LaravelShortcodes\Debugbar\ShortcodesCollector;
 use Vedmant\LaravelShortcodes\Commands\MakeShortcodeCommand;
+use Illuminate\Support\Facades\Blade;
 
 class LaravelShortcodesServiceProvider extends ServiceProvider
 {
@@ -26,6 +27,18 @@ class LaravelShortcodesServiceProvider extends ServiceProvider
         if ($this->app['config']->get('shortcodes.debugbar') && $this->app->bound('debugbar')) {
             $this->app['debugbar']->addCollector(new ShortcodesCollector());
         }
+
+        Blade::directive('shortcodes', function ($expression) {
+            if ($expression === '') {
+                return "<?php ob_start() ?>";
+            } else {
+                return "<?php echo app('shortcodes')->render($expression); ?>";
+            }
+        });
+
+        Blade::directive('endshortcodes', function () {
+            return "<?php echo app('shortcodes')->render(ob_get_clean()); ?>";
+        });
     }
 
     /**
@@ -57,7 +70,7 @@ class LaravelShortcodesServiceProvider extends ServiceProvider
 
         // Register the service the package provides.
         $this->app->singleton('shortcodes', function ($app) {
-            return new ShortcodesManager($app, $app->make('config')->get('shortcodes'));
+            return new Manager($app, $app->make('config')->get('shortcodes'));
         });
 
         $this->registerView();

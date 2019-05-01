@@ -4,18 +4,18 @@ namespace Vedmant\LaravelShortcodes\Facades;
 
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Facades\Facade;
-use Vedmant\LaravelShortcodes\ShortcodesManager;
+use Vedmant\LaravelShortcodes\Manager;
 
 /**
- * @method static ShortcodesManager share(string $key, $value)
+ * @method static Manager share(string $key, $value)
  * @method static mixed shared($key = null, $value = null)
- * @method static ShortcodesManager add($name, $callable = null)
- * @method static ShortcodesManager remove($name)
+ * @method static Manager add($name, $callable = null)
+ * @method static Manager remove($name)
  * @method static array registered()
  * @method static array rendered()
  * @method static HtmlString render($content)
  *
- * @see \Vedmant\LaravelShortcodes\ShortcodesManager
+ * @see \Vedmant\LaravelShortcodes\Manager
  */
 class Shortcodes extends Facade
 {

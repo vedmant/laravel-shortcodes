@@ -6,7 +6,7 @@ use Illuminate\Support\HtmlString;
 use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Foundation\Application;
 
-class ShortcodesManager
+class Manager
 {
     use Macroable;
 
@@ -23,7 +23,7 @@ class ShortcodesManager
      */
     protected $app;
     /**
-     * @var ShortcodesRenderer
+     * @var Renderer
      */
     protected $renderer;
 
@@ -37,7 +37,7 @@ class ShortcodesManager
     {
         $this->app = $app;
         $this->config = $config;
-        $this->renderer = new ShortcodesRenderer($app, $this);
+        $this->renderer = new Renderer($app, $this);
     }
 
     /**
@@ -45,7 +45,7 @@ class ShortcodesManager
      *
      * @param string $key
      * @param mixed  $value
-     * @return ShortcodesManager
+     * @return Manager
      */
     public function share($key, $value)
     {
@@ -75,7 +75,7 @@ class ShortcodesManager
      *
      * @param string|array    $name
      * @param string|callable $callable
-     * @return ShortcodesManager
+     * @return Manager
      */
     public function add($name, $callable = null)
     {
@@ -92,7 +92,7 @@ class ShortcodesManager
      * Unregister a shortcode.
      *
      * @param string $name
-     * @return ShortcodesManager
+     * @return Manager
      */
     public function remove($name)
     {

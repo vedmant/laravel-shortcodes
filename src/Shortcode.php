@@ -28,7 +28,7 @@ abstract class Shortcode implements ShortcodeContract
     public $attributes = [];
 
     /**
-     * @var ShortcodesManager
+     * @var Manager
      */
     protected $manager;
 
@@ -45,12 +45,12 @@ abstract class Shortcode implements ShortcodeContract
     /**
      * AbstractShortcode constructor.
      *
-     * @param Application       $app
-     * @param ShortcodesManager $manager
-     * @param array             $atts
-     * @param string            $tag
+     * @param Application $app
+     * @param Manager     $manager
+     * @param array       $atts
+     * @param string      $tag
      */
-    public function __construct(Application $app, ShortcodesManager $manager, array $atts, $tag)
+    public function __construct(Application $app, Manager $manager, array $atts, $tag)
     {
         $this->app = $app;
         $this->manager = $manager;

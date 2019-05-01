@@ -6,7 +6,7 @@ use Exception;
 use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Foundation\Application;
 
-class ShortcodesRenderer
+class Renderer
 {
     use Macroable;
 
@@ -16,7 +16,7 @@ class ShortcodesRenderer
     public $app;
 
     /**
-     * @var ShortcodesManager
+     * @var Manager
      */
     protected $manager;
 
@@ -33,10 +33,10 @@ class ShortcodesRenderer
     /**
      * Shortcodes renderer constructor.
      *
-     * @param Application       $app
-     * @param ShortcodesManager $manager
+     * @param Application $app
+     * @param Manager     $manager
      */
-    public function __construct(Application $app, ShortcodesManager $manager)
+    public function __construct(Application $app, Manager $manager)
     {
         $this->app = $app;
         $this->manager = $manager;
