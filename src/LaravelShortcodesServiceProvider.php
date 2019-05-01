@@ -30,7 +30,7 @@ class LaravelShortcodesServiceProvider extends ServiceProvider
 
         Blade::directive('shortcodes', function ($expression) {
             if ($expression === '') {
-                return "<?php ob_start() ?>";
+                return '<?php ob_start() ?>';
             } else {
                 return "<?php echo app('shortcodes')->render($expression); ?>";
             }
