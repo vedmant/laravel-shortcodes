@@ -2,4 +2,4 @@ preset: laravel
 
 finder:
    not-name:
-      - "ShortcodesRenderer.php"
+      - "Renderer.php"

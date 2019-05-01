@@ -4,8 +4,8 @@ namespace Vedmant\LaravelShortcodes\View;
 
 use Illuminate\View\Factory;
 use Illuminate\Contracts\View\Engine;
-use Illuminate\View\View as IlluminateView;
 use Vedmant\LaravelShortcodes\Manager;
+use Illuminate\View\View as IlluminateView;
 
 class View extends IlluminateView
 {

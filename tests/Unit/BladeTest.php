@@ -2,8 +2,8 @@
 
 namespace Vedmant\LaravelShortcodes\Tests\Unit;
 
-use Vedmant\LaravelShortcodes\Tests\Resources\BShortcode;
 use Vedmant\LaravelShortcodes\Tests\TestCase;
+use Vedmant\LaravelShortcodes\Tests\Resources\BShortcode;
 
 class BladeTest extends TestCase
 {
