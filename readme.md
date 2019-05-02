@@ -36,8 +36,8 @@ $ composer require vedmant/laravel-shortcodes
 
 This package supports [Laravel Auto-Discovery](https://laravel.com/docs/master/packages#package-discovery) and will be discovered automatically.
 
-For Laravel versions prior to 5.5 please add the `Vedmant\LaravelShortcodes\LaravelShortcodesServiceProvider::class` to the providers array in `config/app.php`
-and `'Shortcodes' => Vedmant\LaravelShortcodes\Facades\Shortcodes::class` to aliases array.
+For Laravel versions prior to 5.5 please add `Vedmant\LaravelShortcodes\LaravelShortcodesServiceProvider::class` to the providers array in `config/app.php`
+and `'Shortcodes' => Vedmant\LaravelShortcodes\Facades\Shortcodes::class` to the aliases array.
 
 
 ## Configuraton 
@@ -88,11 +88,11 @@ Shortcodes::add('test', function ($atts, $content, $tag, $manager) {
 });
 ```
 
-### Rendering shortcodes
+### Render shortcodes
 
 #### Views auto-render
 
-By default this package extends the `View` to parse all shortcodes during views rendering.
+By default this package extends the `View` class to parse all shortcodes during views rendering.
 This feature can be disabled in the config file: `'render_views' => false`. 
 For better performance with lots of views it's advised to disable views auto-render.
 
@@ -106,7 +106,7 @@ view('some-view')->withShortcodes();
 view('some-view')->withoutShortcodes();
 ```
 
-#### Render shortcodes with facade
+#### Render shortcodes with the facade
 
 ```blade
 {{ Shortcodes::render('[b]bold[/b]') }}
@@ -160,7 +160,7 @@ If you need to pass an array to a shortcode, you can pass values separated by co
 [posts_list ids="1,2,3"]
 ```
 
-Then in render function you can parse this attribute using build in method:
+Then in the `render` function you can parse this attribute using built-in method:
 ```php
 $ids = $this->parseCommaSeparated($atts['ids']);
 ```
@@ -170,7 +170,7 @@ $ids = $this->parseCommaSeparated($atts['ids']);
 
 This packages supports [Laravel Debugbar](https://github.com/barryvdh/laravel-debugbar) 
 and adds a tab with detailed info about rendered shortcodes. 
-Integration can be disabled in the config file if needed.
+Integration can be disabled in the config file with option: `'debugbar' => false,`.
 
 
 ## Testing
