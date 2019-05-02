@@ -6,7 +6,7 @@
 [![Build Status][ico-travis]][link-travis]
 [![StyleCI](https://styleci.io/repos/182276041/shield)](https://styleci.io/repos/182276041)
 
-Wordpress based Shortcodes for Laravel 5.x with shared variables, debugbar integration, 
+Wordpress based Shortcodes for [Laravel Framework](https://github.com/laravel/laravel) 5.x with shared variables, debugbar integration, 
 flexible configurations and other useful features.
 
 Build powerful and simple layouts using shortcodes in the content or views like this:
@@ -34,10 +34,10 @@ Via Composer
 $ composer require vedmant/laravel-shortcodes
 ```
 
-This package supports Laravel Auto-Discover and will be discovered automatically.
+This package supports [Laravel Auto-Discovery](https://laravel.com/docs/master/packages#package-discovery) and will be discovered automatically.
 
-For Laravel version before 5.5 please add the Vedmant\LaravelShortcodes\LaravelShortcodesServiceProvider::class to the providers array in `config/app.php`.
-And optionally 'Shortcodes' => Vedmant\LaravelShortcodes\Facades\Shortcodes::class, to aliases.
+For Laravel versions prior to 5.5 please add the `Vedmant\LaravelShortcodes\LaravelShortcodesServiceProvider::class` to the providers array in `config/app.php`
+and `'Shortcodes' => Vedmant\LaravelShortcodes\Facades\Shortcodes::class` to aliases array.
 
 
 ## Configuraton 
@@ -47,7 +47,7 @@ Publish configuration.
 php artisan vendor:publish --tag=shortcodes
 ```
 
-Edit configuration file as needed.
+It will publish configuration file `shortcodes.php`, edit it as needed.
 
 
 ## Usage
@@ -66,7 +66,7 @@ Which generates a shortcode class in the `app/Shortcodes` folder by default.
 
 ### Register shortcodes
 
-You can use AppServiceProvider boot method to register all needed shortcodes.
+You can use `AppServiceProvider::boot` method to register all needed shortcodes.
 
 Using shortcode class:
 ```php
@@ -90,8 +90,13 @@ Shortcodes::add('test', function ($atts, $content, $tag, $manager) {
 
 ### Rendering shortcodes
 
-By default this package extends the View to parse all shortcodes during rendering.
-This feature can be disabled in the config file.
+#### Views auto-render
+
+By default this package extends the `View` to parse all shortcodes during views rendering.
+This feature can be disabled in the config file: `'render_views' => false`. 
+For better performance with lots of views it's advised to disable views auto-render.
+
+#### Enable / disable rendering per view
 
 Also to enable / disable rendering shortcodes for a specific view you can use:
 
@@ -101,12 +106,14 @@ view('some-view')->withShortcodes();
 view('some-view')->withoutShortcodes();
 ```
 
-To render shortcodes manually use with Facade:
+#### Render shortcodes with facade
+
 ```blade
 {{ Shortcodes::render('[b]bold[/b]') }}
 ```
 
-To render shortcodes with Blade directive:
+#### Render shortcodes with blade directive
+
 ```blade
 @shortcodes
    [b class="block"]Content[/b]
@@ -134,6 +141,16 @@ $post = $this->shared('post');
 $allShared = $this->shared();
 ```
 
+### Option to not throw exceptions from views
+
+There is a useful option to aviod server (500) error for whole page when one of shortocode views has thrown an exception.
+
+To enable it set `'throw_exceptions' => false,` in the `shortcodes.php` config file. 
+It works only when `$this->view('some-view');` method is used in the shortcode class.
+
+This will render exception details in the place of a shortcode and will not crash whole page request with 500 error.
+It will still log exception to a log file and report to [Sentry](https://sentry.io/) if it's integrated.
+
 
 ### Comma separated values (array attributes)
 
@@ -151,7 +168,9 @@ $ids = $this->parseCommaSeparated($atts['ids']);
 
 ### Integration with Laravel Debugbar
 
-This packages supports Laravel Debugbar. Integration can be disabled in the config file if needed.
+This packages supports [Laravel Debugbar](https://github.com/barryvdh/laravel-debugbar) 
+and adds a tab with detailed info about rendered shortcodes. 
+Integration can be disabled in the config file if needed.
 
 
 ## Testing
