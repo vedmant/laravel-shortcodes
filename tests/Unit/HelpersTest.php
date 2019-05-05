@@ -2,8 +2,8 @@
 
 namespace Vedmant\LaravelShortcodes\Tests\Unit;
 
-use Vedmant\LaravelShortcodes\Tests\Resources\BShortcode;
 use Vedmant\LaravelShortcodes\Tests\TestCase;
+use Vedmant\LaravelShortcodes\Tests\Resources\BShortcode;
 
 class HelpersTest extends TestCase
 {
@@ -17,6 +17,6 @@ class HelpersTest extends TestCase
         $this->manager->add('b', BShortcode::class);
 
         $rendered = \shortcodes('[b class="test"]Content[/b]');
-        $this->assertEquals("<b class=\"test\">Content</b>", (string) $rendered);
+        $this->assertEquals('<b class="test">Content</b>', (string) $rendered);
     }
 }
