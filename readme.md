@@ -124,6 +124,13 @@ Or
 @shortcodes('[b]bold[/b]')
 ```
 
+#### Render shortcodes with `shortcodes()` helper
+
+```blade
+<div class="some-block">
+   {{ shortcodes('[b]bold[/b]') }}
+</div>
+```
 
 ### Shared attributes
 
@@ -182,9 +189,8 @@ $ vendor/bin/phpunit
 
 ## TODO
 
-1. shortcodes() helper
-1. Add Debugbar integration tests
 1. Shortcodes help data generator
+1. Add Debugbar integration tests
 1. Casting attributes (int, bool, array (comma separated))
 1. Add basic bootstrap shortcodes set
 1. Add commands to generate a shortcode view, generate view by default with make:shortcode
