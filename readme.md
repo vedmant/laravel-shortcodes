@@ -230,7 +230,7 @@ MIT. Please see the [license file](license.md) for more information.
 
 [link-packagist]: https://packagist.org/packages/vedmant/laravel-shortcodes
 [link-downloads]: https://packagist.org/packages/vedmant/laravel-shortcodes
-[link-travis]: https://travis-ci.org/vedmant/laravels-hortcodes
+[link-travis]: https://travis-ci.org/vedmant/laravel-hortcodes
 [link-styleci]: https://github.styleci.io/repos/182276041
 [link-author]: https://github.com/vedmant
 [link-contributors]: ../../contributors
