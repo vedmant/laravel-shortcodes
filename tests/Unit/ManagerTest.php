@@ -2,9 +2,9 @@
 
 namespace Vedmant\LaravelShortcodes\Tests\Unit;
 
-use Vedmant\LaravelShortcodes\Tests\TestCase;
 use Vedmant\LaravelShortcodes\Tests\Resources\BShortcode;
 use Vedmant\LaravelShortcodes\Tests\Resources\HrShortcode;
+use Vedmant\LaravelShortcodes\Tests\TestCase;
 
 class ManagerTest extends TestCase
 {
@@ -57,10 +57,52 @@ class ManagerTest extends TestCase
     {
         $this->manager->add([
             'hr' => HrShortcode::class,
-            'b' => BShortcode::class,
+            'b'  => BShortcode::class,
         ]);
         $rendered = $this->manager->render('[b class="test"]Content[/b][hr class="bold"]');
 
         $this->assertEquals('<b class="test">Content</b><hr class="bold"/>', (string) $rendered);
+    }
+
+    public function testRegisteredData()
+    {
+        $this->manager->add([
+            'hr' => HrShortcode::class,
+            'b'  => BShortcode::class,
+        ]);
+
+        // Should skip closures
+        $this->manager->add('test', function ($atts, $content, $tag, $manager) {
+            return "<b class=\"{$atts['class']}\">{$content}</b>";
+        });
+
+        $data = $this->manager->registeredData();
+
+        $this->assertEquals([
+            'hr' => [
+                'class'       => 'Vedmant\\LaravelShortcodes\\Tests\\Resources\\HrShortcode',
+                'name'        => 'hr',
+                'description' => 'Render [br] shortcode for horizontal line',
+                'attributes'  => [
+                    'class' => [
+                        'default'     => '',
+                        'description' => 'Class name',
+                        'sample'      => 'some-class',
+                    ],
+                ],
+            ],
+            'b'  => [
+                'class'       => 'Vedmant\\LaravelShortcodes\\Tests\\Resources\\BShortcode',
+                'name'        => 'b',
+                'description' => 'Render [b] shortcode for bold text',
+                'attributes'  => [
+                    'class' => [
+                        'default'     => '',
+                        'description' => 'Class name',
+                        'sample'      => 'some-class',
+                    ],
+                ],
+            ],
+        ], $data->toArray());
     }
 }

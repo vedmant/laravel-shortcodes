@@ -2,9 +2,10 @@
 
 namespace Vedmant\LaravelShortcodes;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Traits\Macroable;
-use Illuminate\Contracts\Foundation\Application;
 
 class Manager
 {
@@ -130,5 +131,25 @@ class Manager
     public function render($content)
     {
         return new HtmlString($this->renderer->apply($content));
+    }
+
+    /**
+     * Generate all registered shortcodes info
+     * @return Collection
+     */
+    public function registeredData(): Collection
+    {
+        return (new Collection($this->renderer->shortcodes))->mapWithKeys(function ($class, $name) {
+            if (! is_string($class) || ! class_exists($class)) return [];
+            /** @var Shortcode $shortcode */
+            $shortcode = new $class($this->app, $this, [], $name);
+
+            return [$name => [
+                'class'       => $class,
+                'name'        => $name,
+                'description' => $shortcode->description,
+                'attributes'  => $shortcode->attributes(),
+            ]];
+        });
     }
 }

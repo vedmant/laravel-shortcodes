@@ -172,6 +172,16 @@ Then in the `render` function you can parse this attribute using built-in method
 $ids = $this->parseCommaSeparated($atts['ids']);
 ```
 
+### Generate data for documentation
+
+There can be hundreds of registered shortcodes and having a way to show documentation for all 
+shortcodes is quite a good feature. There is simple method that will collect descriptions and attributes data
+from all registered shortcodes:
+```php
+$data = Shortcodes::registeredData();
+```
+It returns Collection object with generated data that can be used to generate any help information.
+
 
 ### Integration with Laravel Debugbar
 
@@ -189,12 +199,10 @@ $ vendor/bin/phpunit
 
 ## TODO
 
-1. Shortcodes help data generator
-1. Add Debugbar integration tests
 1. Casting attributes (int, bool, array (comma separated))
 1. Add basic bootstrap shortcodes set
-1. Add commands to generate a shortcode view, generate view by default with make:shortcode
-1. Optional attributes validation
+1. Attributes validation
+1. Add Debugbar integration tests
 1. Add custom widget for debugbar integration
 1. Create performance profile tests, optimize performance
 
