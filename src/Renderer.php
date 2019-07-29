@@ -3,8 +3,8 @@
 namespace Vedmant\LaravelShortcodes;
 
 use Exception;
-use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Support\Traits\Macroable;
 
 class Renderer
 {
@@ -110,24 +110,24 @@ class Renderer
 
         $tag = $m[2];
         $atts = $this->shortcodeParseAtts($m[3]);
-        $shortcode = null;
-
         /* @var Shortcode $shortcode */
-        if (is_callable($this->shortcodes[$tag])) {
-            $content = $m[1].$this->shortcodes[$tag]($atts, isset($m[5]) ? $m[5] : null, $tag,
-                    $this->manager).$m[6];
-        } elseif (class_exists($this->shortcodes[$tag])) {
-            $shortcode = new $this->shortcodes[$tag]($this->app, $this->manager, (array) $atts, $tag);
-            if (! $shortcode instanceof Shortcode) {
-                $content = "Class {$this->shortcodes[$tag]} is not an instance of ".Shortcode::class;
+        $shortcode = $this->shortcodes[$tag];
+        $instance = null;
+
+        if (is_callable($shortcode)) {
+            $content = $m[1] . $shortcode($atts, isset($m[5]) ? $m[5] : null, $tag, $this->manager) . $m[6];
+        } elseif (class_exists($shortcode)) {
+            $instance = new $shortcode($this->app, $this->manager, (array) $atts, $tag);
+            if (! $instance instanceof Shortcode) {
+                $content = "Class {$shortcode} is not an instance of " . Shortcode::class;
             } else {
-                $content = $m[1].$shortcode->render(isset($m[5]) ? $m[5] : null).$m[6];
+                $content = $m[1] . $instance->render(isset($m[5]) ? $m[5] : null) . $m[6];
             }
         } else {
-            $content = "Class {$this->shortcodes[$tag]} doesn't exists";
+            $content = "Class {$shortcode} doesn't exists";
         }
 
-        $this->shortcodeDone($tag, $shortcode, microtime(true) - $startTime);
+        $this->shortcodeDone($tag, $instance, microtime(true) - $startTime);
 
         return $content;
     }

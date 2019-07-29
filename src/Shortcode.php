@@ -2,6 +2,7 @@
 
 namespace Vedmant\LaravelShortcodes;
 
+use Carbon\Carbon;
 use Throwable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
@@ -38,6 +39,13 @@ abstract class Shortcode implements ShortcodeContract
     protected $atts;
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [];
+
+    /**
      * @var string Rendered tag name
      */
     protected $tag;
@@ -54,7 +62,7 @@ abstract class Shortcode implements ShortcodeContract
     {
         $this->app = $app;
         $this->manager = $manager;
-        $this->atts = $atts;
+        $this->atts = $this->castAttributes($atts);
         $this->tag = $tag;
     }
 
@@ -142,6 +150,56 @@ abstract class Shortcode implements ShortcodeContract
             }
 
             return "[$this->tag] ".get_class($e).' '.$e->getMessage();
+        }
+    }
+
+    /**
+     * Cast attributes
+     *
+     * @param $atts
+     * @return array
+     */
+    protected function castAttributes($atts)
+    {
+        if (! $this->casts) {
+            return $atts;
+        }
+
+        foreach ($atts as $key => $value) {
+            $atts[$key] = $this->castAttribute($key, $value);
+        }
+
+        return $atts;
+    }
+
+    /**
+     * Cast an attribute to a native PHP type.
+     *
+     * @param  string  $key
+     * @param  mixed  $value
+     * @return mixed
+     */
+    protected function castAttribute($key, $value)
+    {
+        switch (array_get($this->casts, $key)) {
+            case 'int':
+            case 'integer':
+                return (int) $value;
+            case 'real':
+            case 'float':
+            case 'double':
+                return (float) $value;
+            case 'bool':
+            case 'boolean':
+                return $value === 'true';
+            case 'array':
+                return $this->parseCommaSeparated($value);
+            case 'json':
+                return json_decode($value, true);
+            case 'date':
+                return Carbon::parse($value);
+            default:
+                return $value;
         }
     }
 

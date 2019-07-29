@@ -148,6 +148,31 @@ $post = $this->shared('post');
 $allShared = $this->shared();
 ```
 
+### Attribute casting
+
+The $casts property on your shortcode class provides a convenient method of converting attributes to 
+common data types. The $casts property should be an array where the key is the name of the attribute 
+being cast and the value is the type you wish to cast the column to. The supported cast types are: 
+`int`, `integer`, `real`, `float`, `double`, `boolean`, `array` (comma separated values) and `date`. 
+
+```blade
+class YourShortcode extends Shortcode
+{
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'show_ids' => 'array',
+    ];
+}
+```
+
+Now the `show_ids` attribute will always be cast to an array when you access it.
+(array attributes are casted from comma separated string, eg. "1,2,3").
+
+
 ### Option to not throw exceptions from views
 
 There is a useful option to aviod server (500) error for whole page when one of shortocode views has thrown an exception.
@@ -158,19 +183,6 @@ It works only when `$this->view('some-view');` method is used in the shortcode c
 This will render exception details in the place of a shortcode and will not crash whole page request with 500 error.
 It will still log exception to a log file and report to [Sentry](https://sentry.io/) if it's integrated.
 
-
-### Comma separated values (array attributes)
-
-If you need to pass an array to a shortcode, you can pass values separated by comma:
-
-```blade
-[posts_list ids="1,2,3"]
-```
-
-Then in the `render` function you can parse this attribute using built-in method:
-```php
-$ids = $this->parseCommaSeparated($atts['ids']);
-```
 
 ### Generate data for documentation
 
@@ -199,11 +211,9 @@ $ vendor/bin/phpunit
 
 ## TODO
 
-1. Casting attributes (int, bool, array (comma separated))
-1. Add basic bootstrap shortcodes set
 1. Attributes validation
-1. Add Debugbar integration tests
 1. Add custom widget for debugbar integration
+1. Add Debugbar integration tests
 1. Create performance profile tests, optimize performance
 
 ## Contributing

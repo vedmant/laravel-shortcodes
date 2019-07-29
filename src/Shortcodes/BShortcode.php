@@ -29,7 +29,7 @@ class BShortcode extends Shortcode
     public function render($content)
     {
         return $this->view('shortcodes::b', [
-            'atts'    => $this->atts,
+            'atts'    => $this->atts(),
             'content' => $content,
         ]);
     }
