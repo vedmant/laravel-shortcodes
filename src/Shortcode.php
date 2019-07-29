@@ -2,8 +2,8 @@
 
 namespace Vedmant\LaravelShortcodes;
 
-use Carbon\Carbon;
 use Throwable;
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Traits\Macroable;
@@ -154,7 +154,7 @@ abstract class Shortcode implements ShortcodeContract
     }
 
     /**
-     * Cast attributes
+     * Cast attributes.
      *
      * @param $atts
      * @return array

@@ -16,10 +16,10 @@ class CastsShortcode extends Shortcode
      */
     public $attributes = [
         'string' => [
-            'default' => ''
+            'default' => '',
         ],
         'int' => [
-            'default' => ''
+            'default' => '',
         ],
         'integer' => [
             'default' => '',
