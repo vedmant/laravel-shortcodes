@@ -6,7 +6,7 @@
 [![Build Status][ico-travis]][link-travis]
 [![StyleCI](https://styleci.io/repos/182276041/shield)](https://styleci.io/repos/182276041)
 
-Wordpress based Shortcodes for [Laravel Framework](https://github.com/laravel/laravel) 5.x with shared variables, debugbar integration, 
+Wordpress based Shortcodes for [Laravel Framework](https://github.com/laravel/laravel) with shared variables, debugbar integration, 
 flexible configurations and other useful features.
 
 Build powerful and simple layouts using shortcodes in the content or views like this:
