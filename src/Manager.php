@@ -2,6 +2,7 @@
 
 namespace Vedmant\LaravelShortcodes;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Traits\Macroable;
@@ -68,7 +69,7 @@ class Manager
             return $this->shared;
         }
 
-        return array_get($this->shared, $key, $default);
+        return Arr::get($this->shared, $key, $default);
     }
 
     /**

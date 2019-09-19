@@ -2,6 +2,7 @@
 
 namespace Vedmant\LaravelShortcodes;
 
+use Illuminate\Support\Arr;
 use Throwable;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
@@ -181,7 +182,7 @@ abstract class Shortcode implements ShortcodeContract
      */
     protected function castAttribute($key, $value)
     {
-        switch (array_get($this->casts, $key)) {
+        switch (Arr::get($this->casts, $key)) {
             case 'int':
             case 'integer':
                 return (int) $value;
