@@ -2,8 +2,8 @@
 
 namespace Vedmant\LaravelShortcodes\Facades;
 
-use Illuminate\Support\HtmlString;
 use Illuminate\Support\Facades\Facade;
+use Illuminate\Support\HtmlString;
 use Vedmant\LaravelShortcodes\Manager;
 
 /**

@@ -4,9 +4,9 @@ namespace Vedmant\LaravelShortcodes;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Vedmant\LaravelShortcodes\View\Factory;
-use Vedmant\LaravelShortcodes\Debugbar\ShortcodesCollector;
 use Vedmant\LaravelShortcodes\Commands\MakeShortcodeCommand;
+use Vedmant\LaravelShortcodes\Debugbar\ShortcodesCollector;
+use Vedmant\LaravelShortcodes\View\Factory;
 
 class LaravelShortcodesServiceProvider extends ServiceProvider
 {

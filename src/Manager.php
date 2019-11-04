@@ -2,11 +2,11 @@
 
 namespace Vedmant\LaravelShortcodes;
 
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Traits\Macroable;
-use Illuminate\Contracts\Foundation\Application;
 
 class Manager
 {
