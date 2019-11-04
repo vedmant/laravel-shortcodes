@@ -211,9 +211,9 @@ $ vendor/bin/phpunit
 
 ## TODO
 
+1. Integrate Laravel Telescope
 1. Attributes validation
 1. Add custom widget for debugbar integration
-1. Add Debugbar integration tests
 1. Create performance profile tests, optimize performance
 
 ## Contributing
