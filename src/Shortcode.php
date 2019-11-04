@@ -2,13 +2,13 @@
 
 namespace Vedmant\LaravelShortcodes;
 
-use Throwable;
 use Carbon\Carbon;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Traits\Macroable;
-use Illuminate\Contracts\Foundation\Application;
+use Throwable;
 
 abstract class Shortcode implements ShortcodeContract
 {

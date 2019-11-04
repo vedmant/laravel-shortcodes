@@ -2,10 +2,10 @@
 
 namespace Vedmant\LaravelShortcodes\Debugbar;
 
-use Illuminate\Support\Collection;
-use DebugBar\DataCollector\Renderable;
-use Illuminate\Support\Traits\Macroable;
 use DebugBar\DataCollector\DataCollector;
+use DebugBar\DataCollector\Renderable;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Traits\Macroable;
 
 /**
  * Collects info about shortcodes.

@@ -3,8 +3,8 @@
 namespace Vedmant\LaravelShortcodes\Tests\Unit;
 
 use Carbon\Carbon;
-use Vedmant\LaravelShortcodes\Tests\TestCase;
 use Vedmant\LaravelShortcodes\Tests\Resources\CastsShortcode;
+use Vedmant\LaravelShortcodes\Tests\TestCase;
 
 class ShortcodeTest extends TestCase
 {

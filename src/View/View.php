@@ -2,10 +2,10 @@
 
 namespace Vedmant\LaravelShortcodes\View;
 
-use Illuminate\View\Factory;
 use Illuminate\Contracts\View\Engine;
-use Vedmant\LaravelShortcodes\Manager;
+use Illuminate\View\Factory;
 use Illuminate\View\View as IlluminateView;
+use Vedmant\LaravelShortcodes\Manager;
 
 class View extends IlluminateView
 {
