@@ -42,7 +42,7 @@
                 "Vedmant\\LaravelShortcodes\\LaravelShortcodesServiceProvider"
             ],
             "aliases": {
-                "Shortcodes": "Vedmant\\LaravelShortcodes\\Facades\\Shortcodes"
+                "FeedReader": "Vedmant\\LaravelShortcodes\\Facades\\FeedReader"
             }
         }
     }
