@@ -6,9 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Traits\Macroable;
-use Throwable;
 
 abstract class Shortcode implements ShortcodeContract
 {
@@ -30,6 +28,11 @@ abstract class Shortcode implements ShortcodeContract
     public $attributes = [];
 
     /**
+     * @var string Rendered tag name
+     */
+    public $tag;
+
+    /**
      * @var Manager
      */
     protected $manager;
@@ -45,11 +48,6 @@ abstract class Shortcode implements ShortcodeContract
      * @var array
      */
     protected $casts = [];
-
-    /**
-     * @var string Rendered tag name
-     */
-    protected $tag;
 
     /**
      * AbstractShortcode constructor.
@@ -75,6 +73,21 @@ abstract class Shortcode implements ShortcodeContract
     public function atts(): array
     {
         return $this->applyDefaultAtts($this->attributes(), $this->atts);
+    }
+
+    /**
+     * Validate and return attributes
+     *
+     * @param array $rules
+     * @return array
+     */
+    public function validate(array $rules)
+    {
+        $atts = $this->atts();
+
+        $this->app->make('validator')->validate($this->atts(), $rules);
+
+        return $atts;
     }
 
     /**
@@ -134,24 +147,7 @@ abstract class Shortcode implements ShortcodeContract
      */
     protected function view($name, $data = [])
     {
-        if ($this->manager->config['throw_exceptions']) {
-            return $this->app['view']->make($name, $data)->render();
-        }
-
-        // Render view without throwing exceptions
-        try {
-            return $this->app['view']->make($name, $data)->renderSimple();
-        } catch (Throwable $e) {
-            Log::error($e);
-            // Report to sentry if it's intergated
-            if (class_exists('Sentry')) {
-                if (app()->environment('production')) {
-                    \Sentry::captureException($e);
-                }
-            }
-
-            return "[$this->tag] ".get_class($e).' '.$e->getMessage();
-        }
+        return $this->app['view']->make($name, $data)->render();
     }
 
     /**

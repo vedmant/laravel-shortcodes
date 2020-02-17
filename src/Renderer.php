@@ -4,7 +4,11 @@ namespace Vedmant\LaravelShortcodes;
 
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Traits\Macroable;
+use Illuminate\Validation\ValidationException;
+use Throwable;
 
 class Renderer
 {
@@ -121,7 +125,7 @@ class Renderer
             if (! $instance instanceof Shortcode) {
                 $content = "Class {$shortcode} is not an instance of " . Shortcode::class;
             } else {
-                $content = $m[1] . $instance->render(isset($m[5]) ? $m[5] : null) . $m[6];
+                $content = $m[1] . $this->renderShortcode($instance, isset($m[5]) ? $m[5] : null) . $m[6];
             }
         } else {
             $content = "Class {$shortcode} doesn't exists";
@@ -130,6 +134,36 @@ class Renderer
         $this->shortcodeDone($tag, $instance, microtime(true) - $startTime);
 
         return $content;
+    }
+
+    /**
+     * Render shortcode from the class instance
+     *
+     * @param Shortcode   $shortcode
+     * @param string|null $content
+     * @return string
+     */
+    private function renderShortcode(Shortcode $shortcode, $content)
+    {
+        try {
+            return $shortcode->render($content);
+        } catch (ValidationException $e) {
+            return 'Validation error: <br>' . implode('<br>', Arr::flatten($e->errors()));
+        } catch (Throwable $e) {
+            if ($this->manager->config['throw_exceptions']) {
+                throw $e;
+            }
+
+            Log::error($e);
+            // Report to sentry if it's intergated
+            if (class_exists('Sentry')) {
+                if (app()->environment('production')) {
+                    \Sentry::captureException($e);
+                }
+            }
+
+            return "[$shortcode->tag] " . get_class($e) . ' ' . $e->getMessage();
+        }
     }
 
     /**

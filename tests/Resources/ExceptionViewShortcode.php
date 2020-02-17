@@ -4,7 +4,7 @@ namespace Vedmant\LaravelShortcodes\Tests\Resources;
 
 use Vedmant\LaravelShortcodes\Shortcode;
 
-class ExceptionShortcode extends Shortcode
+class ExceptionViewShortcode extends Shortcode
 {
     /**
      * @var string Shortcode description
@@ -30,6 +30,6 @@ class ExceptionShortcode extends Shortcode
      */
     public function render($content)
     {
-        return $someUnknownVar;
+        return $this->view('shortcode-exception');
     }
 }

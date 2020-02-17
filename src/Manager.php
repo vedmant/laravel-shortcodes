@@ -13,17 +13,20 @@ class Manager
     use Macroable;
 
     /**
-     * @var array
+     * @var array Configuration
      */
     public $config;
+
     /**
      * @var array Shared attributes
      */
     public $shared = [];
+
     /**
      * @var Application
      */
     protected $app;
+
     /**
      * @var Renderer
      */

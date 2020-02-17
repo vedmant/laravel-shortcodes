@@ -155,7 +155,7 @@ common data types. The $casts property should be an array where the key is the n
 being cast and the value is the type you wish to cast the column to. The supported cast types are: 
 `int`, `integer`, `real`, `float`, `double`, `boolean`, `array` (comma separated values) and `date`. 
 
-```blade
+```php
 class YourShortcode extends Shortcode
 {
     /**
@@ -173,12 +173,37 @@ Now the `show_ids` attribute will always be cast to an array when you access it.
 (array attributes are casted from comma separated string, eg. "1,2,3").
 
 
-### Option to not throw exceptions from views
+### Attribute validation
 
-There is a useful option to aviod server (500) error for whole page when one of shortocode views has thrown an exception.
+There is a simple way to validate attributes.
+Error messages will be rendered on the shortcode place.
+For convenients it will return attributes.
+
+```php
+class YourShortcode extends Shortcode
+{
+    /**
+     * Render shortcode
+     *
+     * @param string $content
+     * @return string
+     */
+    public function render($content)
+    {
+        $atts = $this->validate([
+            'post_id' => 'required|numeric|exists:posts,id', 
+        ]);
+    
+        //
+    }
+}
+```
+
+### Option to not throw exceptions from shortcodes
+
+There is a useful option to aviod server (500) error for whole page when one of shortocode has thrown an exception.
 
 To enable it set `'throw_exceptions' => false,` in the `shortcodes.php` config file. 
-It works only when `$this->view('some-view');` method is used in the shortcode class.
 
 This will render exception details in the place of a shortcode and will not crash whole page request with 500 error.
 It will still log exception to a log file and report to [Sentry](https://sentry.io/) if it's integrated.
@@ -211,8 +236,6 @@ $ vendor/bin/phpunit
 
 ## TODO
 
-1. Integrate Laravel Telescope
-1. Attributes validation
 1. Add custom widget for debugbar integration
 1. Create performance profile tests, optimize performance
 

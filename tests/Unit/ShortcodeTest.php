@@ -3,7 +3,9 @@
 namespace Vedmant\LaravelShortcodes\Tests\Unit;
 
 use Carbon\Carbon;
+use Illuminate\Validation\ValidationException;
 use Vedmant\LaravelShortcodes\Tests\Resources\CastsShortcode;
+use Vedmant\LaravelShortcodes\Tests\Resources\ValidationShortcode;
 use Vedmant\LaravelShortcodes\Tests\TestCase;
 
 class ShortcodeTest extends TestCase
@@ -37,5 +39,17 @@ class ShortcodeTest extends TestCase
         $this->assertIsArray($atts['array']);
         $this->assertIsArray($atts['json']);
         $this->assertInstanceOf(Carbon::class, $atts['date']);
+    }
+
+    public function testValidation()
+    {
+        $shortcode = new ValidationShortcode($this->app, $this->manager, [], 'validation');
+
+        try {
+            $shortcode->render(null);
+            $this->fail('Expected ValidationException not thrown');
+        } catch(ValidationException $e) {
+            $this->assertCount(3, $e->errors());
+        }
     }
 }
