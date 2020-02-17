@@ -76,7 +76,7 @@ abstract class Shortcode implements ShortcodeContract
     }
 
     /**
-     * Validate and return attributes
+     * Validate and return attributes.
      *
      * @param array $rules
      * @return array
