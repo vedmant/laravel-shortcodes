@@ -48,7 +48,7 @@ class ShortcodeTest extends TestCase
         try {
             $shortcode->render(null);
             $this->fail('Expected ValidationException not thrown');
-        } catch(ValidationException $e) {
+        } catch (ValidationException $e) {
             $this->assertCount(3, $e->errors());
         }
     }
