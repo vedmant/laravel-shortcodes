@@ -34,12 +34,6 @@ Via Composer
 $ composer require vedmant/laravel-shortcodes
 ```
 
-This package supports [Laravel Auto-Discovery](https://laravel.com/docs/master/packages#package-discovery) and will be discovered automatically.
-
-For Laravel versions prior to 5.5 please add `Vedmant\LaravelShortcodes\LaravelShortcodesServiceProvider::class` to the providers array in `config/app.php`
-and `'Shortcodes' => Vedmant\LaravelShortcodes\Facades\Shortcodes::class` to the aliases array.
-
-
 ## Configuraton 
 
 Publish configuration.
