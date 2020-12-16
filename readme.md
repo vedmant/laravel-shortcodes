@@ -243,7 +243,6 @@ If you discover any security related issues, please email vedmant@gmail.com inst
 
 ## Credits
 
-- [vedmant@gmail.com][link-author]
 - [All Contributors][link-contributors]
 
 ## License
