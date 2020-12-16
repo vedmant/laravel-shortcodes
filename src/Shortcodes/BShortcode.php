@@ -1,6 +1,6 @@
 <?php
 
-namespace Vedmant\LaravelShortcodes;
+namespace Vedmant\LaravelShortcodes\Shortcodes;
 
 class BShortcode extends Shortcode
 {
