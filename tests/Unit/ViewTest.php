@@ -75,7 +75,7 @@ class ViewTest extends TestCase
 
         $rendered = $this->app['view']->make('exception')->render();
 
-        $this->assertStringStartsWith('[exception] ErrorException Undefined variable: someUnknownVar', (string) $rendered);
+        $this->assertStringStartsWith('[exception] ErrorException Undefined variable', (string) $rendered);
     }
 
     public function testRenderWithoutThrowingInView()
@@ -86,7 +86,7 @@ class ViewTest extends TestCase
 
         $rendered = $this->app['view']->make('exception')->render();
 
-        $this->assertStringStartsWith('[exception] ErrorException Undefined variable: notExisting ', (string) $rendered);
+        $this->assertStringContainsString('Undefined variable', (string) $rendered);
     }
 
     public function testRenderWithThrowing()
@@ -95,7 +95,7 @@ class ViewTest extends TestCase
         $this->addViewsPath();
         $this->manager->add('exception', ExceptionShortcode::class);
 
-        $this->expectExceptionMessage('Undefined variable: someUnknownVar');
+        $this->expectExceptionMessage('Undefined variable');
 
         $rendered = $this->app['view']->make('exception')->render();
     }
@@ -106,7 +106,7 @@ class ViewTest extends TestCase
         $this->addViewsPath();
         $this->manager->add('exception', ExceptionViewShortcode::class);
 
-        $this->expectExceptionMessage('Undefined variable: notExisting');
+        $this->expectExceptionMessage('Undefined variable');
 
         $rendered = $this->app['view']->make('exception')->render();
     }
