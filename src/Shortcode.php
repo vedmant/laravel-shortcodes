@@ -52,10 +52,10 @@ abstract class Shortcode implements ShortcodeContract
     /**
      * AbstractShortcode constructor.
      *
-     * @param Application $app
-     * @param Manager     $manager
-     * @param array       $atts
-     * @param string      $tag
+     * @param  Application  $app
+     * @param  Manager  $manager
+     * @param  array  $atts
+     * @param  string  $tag
      */
     public function __construct(Application $app, Manager $manager, array $atts, $tag)
     {
@@ -78,7 +78,7 @@ abstract class Shortcode implements ShortcodeContract
     /**
      * Validate and return attributes.
      *
-     * @param array $rules
+     * @param  array  $rules
      * @return array
      */
     public function validate(array $rules)
@@ -93,8 +93,8 @@ abstract class Shortcode implements ShortcodeContract
     /**
      * Combine user attributes with known attributes and fill in defaults when needed.
      *
-     * @param array $defaults
-     * @param array $atts
+     * @param  array  $defaults
+     * @param  array  $atts
      * @return array Combined and filtered attribute list.
      */
     protected function applyDefaultAtts(array $defaults, array $atts)
@@ -129,8 +129,8 @@ abstract class Shortcode implements ShortcodeContract
     /**
      * Get shortcode attributes.
      *
-     * @param string $key
-     * @param mixed  $defatul
+     * @param  string  $key
+     * @param  mixed  $defatul
      * @return array
      */
     public function shared($key = null, $defatul = null)
@@ -141,8 +141,8 @@ abstract class Shortcode implements ShortcodeContract
     /**
      * Render a view with supressed exceptions.
      *
-     * @param string $name
-     * @param array|Collection $data
+     * @param  string  $name
+     * @param  array|Collection  $data
      * @return string
      */
     protected function view($name, $data = [])

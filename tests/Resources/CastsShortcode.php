@@ -71,7 +71,7 @@ class CastsShortcode extends Shortcode
     /**
      * Render shortcode.
      *
-     * @param string $content
+     * @param  string  $content
      * @return string
      */
     public function render($content)

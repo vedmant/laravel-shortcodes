@@ -14,7 +14,7 @@ interface ShortcodeContract
     /**
      * Render shortcode.
      *
-     * @param string $content
+     * @param  string  $content
      * @return mixed
      */
     public function render($content);
@@ -29,8 +29,8 @@ interface ShortcodeContract
     /**
      * Get shortcode attributes.
      *
-     * @param string $key
-     * @param mixed  $defatul
+     * @param  string  $key
+     * @param  mixed  $defatul
      * @return array
      */
     public function shared($key = null, $defatul = null);

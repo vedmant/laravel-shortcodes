@@ -7,7 +7,7 @@ if (! function_exists('shortcodes')) {
     /**
      * Render shortcodes.
      *
-     * @param string $string
+     * @param  string  $string
      * @return string|HtmlString
      */
     function shortcodes($string)

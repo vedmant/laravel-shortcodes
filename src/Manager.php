@@ -35,8 +35,8 @@ class Manager
     /**
      * Shortcodes manager constructor.
      *
-     * @param Application $app
-     * @param array       $config
+     * @param  Application  $app
+     * @param  array  $config
      */
     public function __construct(Application $app, array $config)
     {
@@ -48,8 +48,8 @@ class Manager
     /**
      * Share attribute.
      *
-     * @param string $key
-     * @param mixed  $value
+     * @param  string  $key
+     * @param  mixed  $value
      * @return Manager
      */
     public function share($key, $value)
@@ -62,8 +62,8 @@ class Manager
     /**
      * Set / get shared variable.
      *
-     * @param string $key
-     * @param null   $default
+     * @param  string  $key
+     * @param  null  $default
      * @return mixed
      */
     public function shared($key = null, $default = null)
@@ -78,8 +78,8 @@ class Manager
     /**
      * Register a shortcode.
      *
-     * @param string|array    $name
-     * @param string|callable $callable
+     * @param  string|array  $name
+     * @param  string|callable  $callable
      * @return Manager
      */
     public function add($name, $callable = null)
@@ -96,7 +96,7 @@ class Manager
     /**
      * Unregister a shortcode.
      *
-     * @param string $name
+     * @param  string  $name
      * @return Manager
      */
     public function remove($name)
@@ -129,7 +129,7 @@ class Manager
     /**
      * Render shortcodes in the content.
      *
-     * @param string $content
+     * @param  string  $content
      * @return HtmlString
      */
     public function render($content)
@@ -139,6 +139,7 @@ class Manager
 
     /**
      * Generate all registered shortcodes info.
+     *
      * @return Collection
      */
     public function registeredData(): Collection
