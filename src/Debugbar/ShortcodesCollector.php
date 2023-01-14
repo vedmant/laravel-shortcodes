@@ -22,7 +22,7 @@ class ShortcodesCollector extends DataCollector implements Renderable
     /**
      * Adds an shortcode to be profiled in the debug bar.
      *
-     * @param array $data
+     * @param  array  $data
      */
     public function addShortcode(array $data)
     {

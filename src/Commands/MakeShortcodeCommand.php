@@ -40,7 +40,7 @@ class MakeShortcodeCommand extends GeneratorCommand
     /**
      * Determine if the class already exists.
      *
-     * @param string $rawName
+     * @param  string  $rawName
      * @return bool
      */
     protected function alreadyExists($rawName)
@@ -51,7 +51,7 @@ class MakeShortcodeCommand extends GeneratorCommand
     /**
      * Get the default namespace for the class.
      *
-     * @param string $rootNamespace
+     * @param  string  $rootNamespace
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace)

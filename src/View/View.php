@@ -22,12 +22,12 @@ class View extends IlluminateView
     /**
      * Create a new view instance.
      *
-     * @param \Illuminate\View\Factory          $factory
-     * @param \Illuminate\Contracts\View\Engine $engine
-     * @param string                            $view
-     * @param string                            $path
-     * @param mixed                             $data
-     * @param Manager                           $shortcodes
+     * @param  \Illuminate\View\Factory  $factory
+     * @param  \Illuminate\Contracts\View\Engine  $engine
+     * @param  string  $view
+     * @param  string  $path
+     * @param  mixed  $data
+     * @param  Manager  $shortcodes
      * @return void
      */
     public function __construct(
